@@ -95,6 +95,7 @@ export const usePFoodFromClam = (clamAmount) => {
 }
 
 export const useMintWithClam = () => {
+  const { account } = useEthers()
   const addresses = useAddresses()
   const clam = useERC20(addresses.CLAM)
   const contract = usePFood()
@@ -109,7 +110,7 @@ export const useMintWithClam = () => {
       status: 'Mining',
     })
     try {
-      const allowance = await clam.allowance(addresses.PFOOD, addresses.CLAM)
+      const allowance = await clam.allowance(account, addresses.PFOOD)
       if (allowance.lt(amount)) {
         await (await clam.approve(addresses.PFOOD, amount)).wait()
       }

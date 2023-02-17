@@ -1,17 +1,33 @@
+import { useEthers, useTokenBalance } from '@usedapp/core'
+import { BigNumber } from 'ethers'
+import { formatEther, formatUnits, parseUnits } from 'ethers/lib/utils'
 import { useEffect, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import styled from 'styled-components/macro'
-import { Typography } from './Typography'
+import ClamDiscount from './assets/clam-discount.svg'
 import CLAM from './assets/clam.png'
-import FoodCoin from './assets/food.png'
 import DAI from './assets/dai.png'
+import FoodCoin from './assets/food.png'
 import { useAddresses, useMintWithClam, usePFoodFromClam } from './contracts'
-import { useEthers, useTokenBalance } from '@usedapp/core'
+import { Typography } from './Typography'
 import { trim } from './utils/trim'
-import { formatEther, formatUnits, parseUnits } from 'ethers/lib/utils'
-import { BigNumber, constants } from 'ethers'
 
-const StyledClamPhase = styled.section``
+const StyledClamPhase = styled.section`
+  position: relative;
+`
+
+const StyledClamDiscount = styled.img`
+  position: absolute;
+  width: 143px;
+  height: 143px;
+  top: -24px;
+  right: 0;
+
+  @media (max-width: 600px) {
+    top: -70px;
+    right: -20px;
+  }
+`
 
 const StyledTopContainer = styled.div`
   padding: 40px;
@@ -178,6 +194,7 @@ export default function ClamPhase({ whitelistStageStartTime, publicStageStartTim
   const { account } = useEthers()
   const addresses = useAddresses()
   const clamBalance = useTokenBalance(addresses.CLAM, account)
+  const pFoodBalance = useTokenBalance(addresses.PFOOD, account)
   const [clamAmount, setClamAmount] = useState('1')
   const [isChecked, setIsChecked] = useState(false)
   const { usdPerClam, pFoodAmount } = usePFoodFromClam(parseUnits(clamAmount, 9))
@@ -186,8 +203,14 @@ export default function ClamPhase({ whitelistStageStartTime, publicStageStartTim
   const phase = !started ? 'not_started' : ended ? 'ended' : 'ongoing'
   const { mint, mintState, resetState } = useMintWithClam()
   const onMax = () => {
-    // TODO:
-    console.log('max')
+    const clamCapPerAccount = capPerAccount
+      .sub(pFoodBalance)
+      .mul(BigNumber.from(10).pow(27))
+      .div(pFoodPerUsd.mul(10000).div(9000))
+      .div(usdPerClam)
+    console.log(clamCapPerAccount.toString())
+    const max = clamBalance?.gt(clamCapPerAccount) ? clamCapPerAccount : clamBalance
+    setClamAmount(formatUnits(max, 9))
   }
   useEffect(() => {
     if (mintState.status === 'Fail' || mintState.status === 'Exception') {
@@ -275,12 +298,16 @@ export default function ClamPhase({ whitelistStageStartTime, publicStageStartTim
             {t('dialog.term')}
           </Typography>
         </StyledHint>
-        <StyledSubmitButton onClick={() => mint(clamAmount)} disabled={!isChecked && mintState.status !== 'None'}>
+        <StyledSubmitButton
+          onClick={() => mint(parseUnits(clamAmount, 9))}
+          disabled={!isChecked && mintState.status !== 'None'}
+        >
           <Typography variant="header2">
             {t(mintState.status !== 'None' ? 'dialog.processing' : 'dialog.purchase')}
           </Typography>
         </StyledSubmitButton>
       </StyledBottomContainer>
+      <StyledClamDiscount src={ClamDiscount} />
     </StyledClamPhase>
   )
 }

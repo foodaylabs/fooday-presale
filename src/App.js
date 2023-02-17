@@ -1,11 +1,11 @@
-import { useEthers, useTokenBalance } from '@usedapp/core'
+import { useEthers } from '@usedapp/core'
 import { formatEther } from 'ethers/lib/utils'
 import { useMemo, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import styled from 'styled-components/macro'
 import FoodCoin from './assets/food.png'
 import ClamPhase from './ClamPhase'
-import { useAddresses, useMintWithClam, usePFoodInfo } from './contracts'
+import { usePFoodInfo } from './contracts'
 import Countdown from './Countdown'
 import { Typography } from './Typography'
 import { trim } from './utils/trim'
@@ -28,6 +28,10 @@ const StyledHeadlineDesc = styled.p`
 
 const StyledBody = styled.div`
   width: 570px;
+
+  @media (max-width: 600px) {
+    width: 90%;
+  }
 `
 
 const StyledInfoSection = styled.section`
