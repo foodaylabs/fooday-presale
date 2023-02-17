@@ -1,11 +1,13 @@
 {
   "files": {
     "main.css": "/static/css/main.f673e884.css",
-    "main.js": "/static/js/main.c33a6318.js",
+    "main.js": "/static/js/main.f9eb64ee.js",
     "static/js/787.dbe2b808.chunk.js": "/static/js/787.dbe2b808.chunk.js",
     "static/media/clam-discount.svg": "/static/media/clam-discount.a1763d3d7369c7b5177bbf38366226b5.svg",
     "static/media/logo.svg": "/static/media/logo.b5df4d3228273e4690bf42904f1f31bc.svg",
     "static/media/tokens.svg": "/static/media/tokens.46a30768fc02e98e4e37ce3f41c6ce30.svg",
+    "static/media/text-foodcoin.svg": "/static/media/text-foodcoin.299b26b230675a23aab05674a7eea1a1.svg",
+    "static/media/text-presale.svg": "/static/media/text-presale.4ffe11a85c5b3b135532112ca57561c1.svg",
     "index.html": "/index.html",
     "static/media/discord.svg": "/static/media/discord.32701cc33450c01a7d67747aa302ded2.svg",
     "static/media/logo-without-icon.svg": "/static/media/logo-without-icon.0e93e901933b9a9f28a906a778e3bce3.svg",
@@ -13,13 +15,14 @@
     "static/media/Food.svg": "/static/media/Food.6c3cc9fa6f3246014410f012608cb261.svg",
     "static/media/twitter.svg": "/static/media/twitter.11e98080bac672b6cb57388de04b8701.svg",
     "static/media/medium.svg": "/static/media/medium.0aa7083b36865631d29f712f9f552551.svg",
+    "static/media/ellipse.svg": "/static/media/ellipse.3002181168116aed247324c2eafd9873.svg",
     "static/media/close.svg": "/static/media/close.a3a8ce8138ecdc1e2f75278ab4a1c5c1.svg",
     "main.f673e884.css.map": "/static/css/main.f673e884.css.map",
-    "main.c33a6318.js.map": "/static/js/main.c33a6318.js.map",
+    "main.f9eb64ee.js.map": "/static/js/main.f9eb64ee.js.map",
     "787.dbe2b808.chunk.js.map": "/static/js/787.dbe2b808.chunk.js.map"
   },
   "entrypoints": [
     "static/css/main.f673e884.css",
-    "static/js/main.c33a6318.js"
+    "static/js/main.f9eb64ee.js"
   ]
 }
