@@ -67,7 +67,7 @@ const StyledBottomContainer = styled.div`
   border-top: 0px;
   border-radius: 0 0 20px 20px;
   padding: 40px;
-  display flex;
+  display: flex;
   flex-direction: column;
   gap: 30px;
 `
@@ -193,16 +193,23 @@ const StyledSubmitButton = styled.button`
   }
 `
 
+const StyledConnectContainer = styled.div`
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  gap: 30px;
+`
+
 export default function ClamPhase({ whitelistStageStartTime, publicStageStartTime, capPerAccount, pFoodPerUsd }) {
   const { t } = useTranslation()
   const [now, setNow] = useState(Date.now())
-  const { account } = useEthers()
+  const { account, activateBrowserWallet } = useEthers()
   const addresses = useAddresses()
   const clamBalance = useTokenBalance(addresses.CLAM, account)
   const pFoodBalance = useTokenBalance(addresses.PFOOD, account)
   const [clamAmount, setClamAmount] = useState('1')
   const [isChecked, setIsChecked] = useState(false)
-  const { usdPerClam, pFoodAmount } = usePFoodFromClam(parseUnits(clamAmount, 9))
+  const { usdPerClam, pFoodAmount } = usePFoodFromClam(parseUnits(clamAmount || '0', 9))
   const started = whitelistStageStartTime < now
   const ended = publicStageStartTime < now
   const phase = !started ? 'not_started' : ended ? 'ended' : 'ongoing'
@@ -234,83 +241,97 @@ export default function ClamPhase({ whitelistStageStartTime, publicStageStartTim
         <StyledDesc>{t('clam_holder_phase.desc')}</StyledDesc>
       </StyledTopContainer>
       <StyledBottomContainer>
-        <StyledInputContainer>
-          <StyledMaxContainer>
-            <Typography variant="header2">{t('dialog.purchase_amount')}</Typography>
-            <StyledMaxButton onClick={onMax}>{t('dialog.max')}</StyledMaxButton>
-          </StyledMaxContainer>
-          <StyledTokenInputRow>
-            <StyledToken token={CLAM}>CLAM</StyledToken>
-            <StyledInput
-              placeholder="0"
-              value={clamAmount}
-              min={0}
-              disabled={mintState.status !== 'None'}
-              onChange={(e) => {
-                if (e.target.value === '') {
-                  setClamAmount('')
-                } else if (Number(e.target.value)) {
-                  setClamAmount(e.target.value)
-                }
-              }}
-            />
-          </StyledTokenInputRow>
-          <StyledTokenBalance token={CLAM}>
-            {t('dialog.balance')}
-            {clamBalance ? trim(formatUnits(clamBalance, 9), 2) : '-'} CLAM
-          </StyledTokenBalance>
-          <Typography as="p" color="#545864" variant="caption">
-            {t('dialog.max_allowed', { max: trim(formatEther(capPerAccount)) })}
-          </Typography>
-        </StyledInputContainer>
-        <StyledInputContainer>
-          <Typography variant="header2">{t('dialog.claim')}</Typography>
-          <StyledOutputRow>
-            <StyledToken token={FoodCoin}>pFOOD</StyledToken>
-            <Typography variant="header2">{pFoodAmount ? trim(formatEther(pFoodAmount), 4) : '-'}</Typography>
-          </StyledOutputRow>
-          <StyledOutputHint>
-            <StyledTokenBalance token={CLAM}>1 CLAM</StyledTokenBalance>=
-            <StyledTokenBalance token={DAI}>{usdPerClam ? formatEther(usdPerClam) : '-'} DAI</StyledTokenBalance>=
-            <StyledDiscountContainer>
-              <StyledDiscountTokenBalance token={FoodCoin}>
-                {pFoodPerUsd && usdPerClam
-                  ? trim(formatEther(pFoodPerUsd.mul(usdPerClam).div(BigNumber.from('10').pow(18))), 1)
-                  : '-'}{' '}
-                pFOOD
-              </StyledDiscountTokenBalance>
-              <StyledDiscountPrice>
-                <Typography variant="header2" color="#EE5537">
-                  {pFoodPerUsd && usdPerClam
-                    ? trim(
-                        formatEther(pFoodPerUsd.mul(usdPerClam).mul(10000).div(9000).div(BigNumber.from('10').pow(18))),
-                        2
-                      )
-                    : '-'}
-                </Typography>
-                <StyledDiscountLabel>10% Off</StyledDiscountLabel>
-              </StyledDiscountPrice>
-            </StyledDiscountContainer>
-          </StyledOutputHint>
-        </StyledInputContainer>
-        <StyledHint>
-          <StyledHintCheckBox
-            checked={isChecked}
-            disabled={mintState.status !== 'None'}
-            onChange={(e) => setIsChecked(e.target.checked)}
-          />
-          <Typography variant="caption" color="#545864">
-            {t('dialog.term')}
-          </Typography>
-        </StyledHint>
-        <StyledSubmitButton
-          onClick={() => mint(parseUnits(clamAmount, 9))}
-          disabled={!isChecked || mintState.status !== 'None'}
-        >
-          <Typography variant="header2">
-            {t(mintState.status !== 'None' ? 'dialog.processing' : 'dialog.purchase')}
-          </Typography>
-        </StyledSubmitButton>
+        {!account && (
+          <StyledConnectContainer>
+            <Typography variant="header3" color="#545864">
+              {t('connect_desc')}
+            </Typography>
+            <StyledSubmitButton onClick={() => activateBrowserWallet()}>{t('connect_btn')}</StyledSubmitButton>
+          </StyledConnectContainer>
+        )}
+        {account && (
+          <>
+            <StyledInputContainer>
+              <StyledMaxContainer>
+                <Typography variant="header2">{t('dialog.purchase_amount')}</Typography>
+                <StyledMaxButton onClick={onMax}>{t('dialog.max')}</StyledMaxButton>
+              </StyledMaxContainer>
+              <StyledTokenInputRow>
+                <StyledToken token={CLAM}>CLAM</StyledToken>
+                <StyledInput
+                  placeholder="0"
+                  value={clamAmount}
+                  min={0}
+                  disabled={mintState.status !== 'None'}
+                  onChange={(e) => {
+                    if (e.target.value === '') {
+                      setClamAmount('')
+                    } else if (Number(e.target.value)) {
+                      setClamAmount(e.target.value)
+                    }
+                  }}
+                />
+              </StyledTokenInputRow>
+              <StyledTokenBalance token={CLAM}>
+                {t('dialog.balance')}
+                {clamBalance ? trim(formatUnits(clamBalance, 9), 2) : '-'} CLAM
+              </StyledTokenBalance>
+              <Typography as="p" color="#545864" variant="caption">
+                {t('dialog.max_allowed', { max: trim(formatEther(capPerAccount)) })}
+              </Typography>
+            </StyledInputContainer>
+            <StyledInputContainer>
+              <Typography variant="header2">{t('dialog.claim')}</Typography>
+              <StyledOutputRow>
+                <StyledToken token={FoodCoin}>pFOOD</StyledToken>
+                <Typography variant="header2">{pFoodAmount ? trim(formatEther(pFoodAmount), 4) : '-'}</Typography>
+              </StyledOutputRow>
+              <StyledOutputHint>
+                <StyledTokenBalance token={CLAM}>1 CLAM</StyledTokenBalance>=
+                <StyledTokenBalance token={DAI}>{usdPerClam ? formatEther(usdPerClam) : '-'} DAI</StyledTokenBalance>=
+                <StyledDiscountContainer>
+                  <StyledDiscountTokenBalance token={FoodCoin}>
+                    {pFoodPerUsd && usdPerClam
+                      ? trim(formatEther(pFoodPerUsd.mul(usdPerClam).div(BigNumber.from('10').pow(18))), 1)
+                      : '-'}{' '}
+                    pFOOD
+                  </StyledDiscountTokenBalance>
+                  <StyledDiscountPrice>
+                    <Typography variant="header2" color="#EE5537">
+                      {pFoodPerUsd && usdPerClam
+                        ? trim(
+                            formatEther(
+                              pFoodPerUsd.mul(usdPerClam).mul(10000).div(9000).div(BigNumber.from('10').pow(18))
+                            ),
+                            2
+                          )
+                        : '-'}
+                    </Typography>
+                    <StyledDiscountLabel>10% Off</StyledDiscountLabel>
+                  </StyledDiscountPrice>
+                </StyledDiscountContainer>
+              </StyledOutputHint>
+            </StyledInputContainer>
+            <StyledHint>
+              <StyledHintCheckBox
+                checked={isChecked}
+                disabled={mintState.status !== 'None'}
+                onChange={(e) => setIsChecked(e.target.checked)}
+              />
+              <Typography variant="caption" color="#545864">
+                {t('dialog.term')}
+              </Typography>
+            </StyledHint>
+            <StyledSubmitButton
+              onClick={() => mint(parseUnits(clamAmount, 9))}
+              disabled={!isChecked || mintState.status !== 'None'}
+            >
+              <Typography variant="header2">
+                {t(mintState.status !== 'None' ? 'dialog.processing' : 'dialog.purchase')}
+              </Typography>
+            </StyledSubmitButton>
+          </>
+        )}
       </StyledBottomContainer>
       <StyledClamDiscount src={ClamDiscount} />
       {mintState.status === 'Success' && (

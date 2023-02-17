@@ -62,4 +62,6 @@
       "email": "Contact us via email"
     }
   }
+  "connect_desc": "Please connect your wallet to continue the purchase:",
+  "connect_btn": "Connect Wallet"
 }
