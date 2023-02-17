@@ -1,9 +1,9 @@
-import { useCall, useCalls, useContractFunction, useEthers } from '@usedapp/core'
+import { useCalls, useContractFunction, useEthers } from '@usedapp/core'
 import { BigNumber, constants, Contract } from 'ethers'
 import { useEffect, useMemo, useState } from 'react'
 import ERC20 from './ERC20.json'
-import PFood from './PFood.json'
 import OtterMine from './OtterMine.json'
+import PFood from './PFood.json'
 
 const addresses = {
   137: {

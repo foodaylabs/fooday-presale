@@ -9,6 +9,7 @@ import CLAM from './assets/clam.png'
 import DAI from './assets/dai.png'
 import FoodCoin from './assets/food.png'
 import { useAddresses, useMintWithClam, usePFoodFromClam } from './contracts'
+import SuccessDialog from './SuccessDialog'
 import { Typography } from './Typography'
 import { trim } from './utils/trim'
 
@@ -186,6 +187,10 @@ const StyledSubmitButton = styled.button`
   border-radius: 5px;
   color: white;
   padding: 15px;
+
+  :disabled {
+    background: #a1a7ba;
+  }
 `
 
 export default function ClamPhase({ whitelistStageStartTime, publicStageStartTime, capPerAccount, pFoodPerUsd }) {
@@ -300,7 +305,7 @@ export default function ClamPhase({ whitelistStageStartTime, publicStageStartTim
         </StyledHint>
         <StyledSubmitButton
           onClick={() => mint(parseUnits(clamAmount, 9))}
-          disabled={!isChecked && mintState.status !== 'None'}
+          disabled={!isChecked || mintState.status !== 'None'}
         >
           <Typography variant="header2">
             {t(mintState.status !== 'None' ? 'dialog.processing' : 'dialog.purchase')}
@@ -308,6 +313,9 @@ export default function ClamPhase({ whitelistStageStartTime, publicStageStartTim
         </StyledSubmitButton>
       </StyledBottomContainer>
       <StyledClamDiscount src={ClamDiscount} />
+      {mintState.status === 'Success' && (
+        <SuccessDialog pFoodAmount={trim(formatEther(pFoodAmount), 4)} onClose={() => resetState()} />
+      )}
     </StyledClamPhase>
   )
 }
