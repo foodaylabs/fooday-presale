@@ -18,6 +18,13 @@ const StyledMain = styled.main`
   align-items: center;
 `
 
+const StyledHeadlineContainer = styled.div`
+  width: 60%;
+  @media (max-width: 600px) {
+    width: 90%;
+  }
+`
+
 const StyledHeadline = styled.h1`
   margin-top: 114px;
   text-align: center;
@@ -113,7 +120,6 @@ const END_TIME = new Date('2023-03-17T23:59:59.999Z')
 
 function App() {
   const { t } = useTranslation()
-  const { activateBrowserWallet, account } = useEthers()
   const { pFoodPerUsd, capPerAccount, whitelistStageStartTime, publicStageStartTime, totalSupply, cap } = usePFoodInfo()
   const [now, setNow] = useState(Date.now())
   const phase = useMemo(() => {
@@ -139,12 +145,14 @@ function App() {
     <div>
       <Topbar />
       <StyledMain>
-        <StyledHeadline>
-          <Typography variant="display1">{t('headline')}</Typography>
-        </StyledHeadline>
-        <StyledHeadlineDesc>
-          <Typography variant="header1">{t('headline_desc')})</Typography>
-        </StyledHeadlineDesc>
+        <StyledHeadlineContainer>
+          <StyledHeadline>
+            <Typography variant="display1">{t('headline')}</Typography>
+          </StyledHeadline>
+          <StyledHeadlineDesc>
+            <Typography variant="header1">{t('headline_desc')})</Typography>
+          </StyledHeadlineDesc>
+        </StyledHeadlineContainer>
         <StyledBody>
           <StyledInfoSection>
             <StyledCountdownArea>
