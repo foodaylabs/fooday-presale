@@ -7,6 +7,7 @@ import FoodCoin from './assets/food.png'
 import ClamPhase from './ClamPhase'
 import { usePFoodInfo } from './contracts'
 import Countdown from './Countdown'
+import Topbar from './Topbar'
 import { Typography } from './Typography'
 import { trim } from './utils/trim'
 
@@ -135,7 +136,7 @@ function App() {
   const progress = useMemo(() => totalSupply?.mul(100).div(cap).toString(), [totalSupply, cap])
   return (
     <div>
-      <header></header>
+      <Topbar />
       <StyledMain>
         <StyledHeadline>
           <Typography variant="display1">{t('headline')}</Typography>
