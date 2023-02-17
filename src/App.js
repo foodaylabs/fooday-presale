@@ -64,6 +64,16 @@ const StyledBodyContainer = styled.div`
     left: -264px;
     top: -306px;
   }
+
+  @media (max-width: 600px) {
+    background: unset;
+
+    &::before {
+      left: 50%;
+      top: -380px;
+      margin-left: -264px;
+    }
+  }
 `
 
 const StyledInfoSection = styled.section`
