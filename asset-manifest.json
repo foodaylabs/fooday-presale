@@ -1,9 +1,10 @@
 {
   "files": {
-    "main.css": "/static/css/main.58e03819.css",
-    "main.js": "/static/js/main.ae0ba948.js",
+    "main.css": "/static/css/main.968b93d0.css",
+    "main.js": "/static/js/main.c49d3864.js",
     "static/js/787.dbe2b808.chunk.js": "/static/js/787.dbe2b808.chunk.js",
     "static/media/clam-discount.svg": "/static/media/clam-discount.a1763d3d7369c7b5177bbf38366226b5.svg",
+    "static/media/logo.svg": "/static/media/logo.b5df4d3228273e4690bf42904f1f31bc.svg",
     "index.html": "/index.html",
     "static/media/discord.svg": "/static/media/discord.32701cc33450c01a7d67747aa302ded2.svg",
     "static/media/ig.svg": "/static/media/ig.580133383e6ef97d0f1ff272d64470f6.svg",
@@ -11,12 +12,12 @@
     "static/media/twitter.svg": "/static/media/twitter.11e98080bac672b6cb57388de04b8701.svg",
     "static/media/medium.svg": "/static/media/medium.0aa7083b36865631d29f712f9f552551.svg",
     "static/media/close.svg": "/static/media/close.a3a8ce8138ecdc1e2f75278ab4a1c5c1.svg",
-    "main.58e03819.css.map": "/static/css/main.58e03819.css.map",
-    "main.ae0ba948.js.map": "/static/js/main.ae0ba948.js.map",
+    "main.968b93d0.css.map": "/static/css/main.968b93d0.css.map",
+    "main.c49d3864.js.map": "/static/js/main.c49d3864.js.map",
     "787.dbe2b808.chunk.js.map": "/static/js/787.dbe2b808.chunk.js.map"
   },
   "entrypoints": [
-    "static/css/main.58e03819.css",
-    "static/js/main.ae0ba948.js"
+    "static/css/main.968b93d0.css",
+    "static/js/main.c49d3864.js"
   ]
 }
