@@ -1,7 +1,7 @@
 {
   "files": {
     "main.css": "/static/css/main.968b93d0.css",
-    "main.js": "/static/js/main.c49d3864.js",
+    "main.js": "/static/js/main.d58634bb.js",
     "static/js/787.dbe2b808.chunk.js": "/static/js/787.dbe2b808.chunk.js",
     "static/media/clam-discount.svg": "/static/media/clam-discount.a1763d3d7369c7b5177bbf38366226b5.svg",
     "static/media/logo.svg": "/static/media/logo.b5df4d3228273e4690bf42904f1f31bc.svg",
@@ -13,11 +13,11 @@
     "static/media/medium.svg": "/static/media/medium.0aa7083b36865631d29f712f9f552551.svg",
     "static/media/close.svg": "/static/media/close.a3a8ce8138ecdc1e2f75278ab4a1c5c1.svg",
     "main.968b93d0.css.map": "/static/css/main.968b93d0.css.map",
-    "main.c49d3864.js.map": "/static/js/main.c49d3864.js.map",
+    "main.d58634bb.js.map": "/static/js/main.d58634bb.js.map",
     "787.dbe2b808.chunk.js.map": "/static/js/787.dbe2b808.chunk.js.map"
   },
   "entrypoints": [
     "static/css/main.968b93d0.css",
-    "static/js/main.c49d3864.js"
+    "static/js/main.d58634bb.js"
   ]
 }
