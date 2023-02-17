@@ -41,5 +41,11 @@
     "title": "Fooday-licious!",
     "desc": "You've just taken a big bite out of the future of restaurant reviews by purchasing Food Coins!",
     "hint": "To stay on top of the latest Fooday news and updates, be sure to give us a follow. Let's make some tasty things happen together!"
+  },
+  "topbar": {
+    "links": {
+      "docs": "Docs",
+      "waitlist": "Join Waitlist"
+    }
   }
 }
