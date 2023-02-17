@@ -1,13 +1,13 @@
 import { useEthers, useTokenBalance } from '@usedapp/core'
-import { formatEther, formatUnits, parseUnits } from 'ethers/lib/utils'
-import { useTranslation } from 'react-i18next'
-import { useAddresses, useMintWithClam, usePFoodInfo } from './contracts'
+import { formatEther } from 'ethers/lib/utils'
 import { useMemo, useState } from 'react'
-import { usePFoodPerClam } from './contracts'
-import styled from 'styled-components'
-import { Typography } from './Typography'
-import Countdown from './Countdown'
+import { useTranslation } from 'react-i18next'
+import styled from 'styled-components/macro'
 import FoodCoin from './assets/food.png'
+import ClamPhase from './ClamPhase'
+import { useAddresses, useMintWithClam, usePFoodInfo } from './contracts'
+import Countdown from './Countdown'
+import { Typography } from './Typography'
 import { trim } from './utils/trim'
 
 const StyledMain = styled.main`
@@ -26,11 +26,16 @@ const StyledHeadlineDesc = styled.p`
   text-align: center;
 `
 
+const StyledBody = styled.div`
+  width: 570px;
+`
+
 const StyledInfoSection = styled.section`
   margin-top: 60px;
   border-radius: 20px;
   overflow: hidden;
   border: 1px solid #000000;
+  margin-bottom: 20px;
 `
 
 const StyledCountdownArea = styled.div`
@@ -127,10 +132,8 @@ function App() {
   const progress = useMemo(() => totalSupply?.mul(100).div(cap).toString(), [totalSupply, cap])
   const { mint, mintState, resetState } = useMintWithClam()
   const addresses = useAddresses()
-  const clamBalance = useTokenBalance(addresses.CLAM, account)
   const daiBalance = useTokenBalance(addresses.DAI, account)
   const pFoodBalance = useTokenBalance(addresses.PFOOD, account)
-  const pFoodPerClam = usePFoodPerClam(parseUnits(clamAmount, 9))
   return (
     <div>
       <header></header>
@@ -141,41 +144,48 @@ function App() {
         <StyledHeadlineDesc>
           <Typography variant="header1">{t('headline_desc')})</Typography>
         </StyledHeadlineDesc>
-        <StyledInfoSection>
-          <StyledCountdownArea>
-            <StyledCountdownTitle>{t('countdown_title.' + phase)}</StyledCountdownTitle>
-            <StyledCountdown target={countdownTarget}></StyledCountdown>
-            <StyledSellDuration>
-              <Typography variant="header3" as="p">
-                {t('duration_clam', {
-                  start: whitelistStageStartTime.toLocaleString(),
-                  end: publicStageStartTime.toLocaleString(),
-                })}
+        <StyledBody>
+          <StyledInfoSection>
+            <StyledCountdownArea>
+              <StyledCountdownTitle>{t('countdown_title.' + phase)}</StyledCountdownTitle>
+              <StyledCountdown target={countdownTarget}></StyledCountdown>
+              <StyledSellDuration>
+                <Typography variant="header3" as="p">
+                  {t('duration_clam', {
+                    start: whitelistStageStartTime.toLocaleString(),
+                    end: publicStageStartTime.toLocaleString(),
+                  })}
+                </Typography>
+                <Typography variant="header3" as="p">
+                  {t('duration_public', {
+                    start: publicStageStartTime.toLocaleString(),
+                    end: END_TIME.toLocaleString(),
+                  })}
+                </Typography>
+              </StyledSellDuration>
+            </StyledCountdownArea>
+            <StyledCollectedArea>
+              <Typography variant="header2" as="h3">
+                {t('total_collected')}
               </Typography>
-              <Typography variant="header3" as="p">
-                {t('duration_public', {
-                  start: publicStageStartTime.toLocaleString(),
-                  end: END_TIME.toLocaleString(),
+              <StyledProgressBar>
+                <StyledProgressBarProgress progress={progress}></StyledProgressBarProgress>
+              </StyledProgressBar>
+              <StyledTotalCollectedFood>{trim(formatEther(totalSupply), 0)} pFOOD</StyledTotalCollectedFood>
+              <StyledGoal>
+                {t('goal', {
+                  percent: progress,
+                  goal: trim(formatEther(cap), 0),
                 })}
-              </Typography>
-            </StyledSellDuration>
-          </StyledCountdownArea>
-          <StyledCollectedArea>
-            <Typography variant="header2" as="h3">
-              {t('total_collected')}
-            </Typography>
-            <StyledProgressBar>
-              <StyledProgressBarProgress progress={progress}></StyledProgressBarProgress>
-            </StyledProgressBar>
-            <StyledTotalCollectedFood>{trim(formatEther(totalSupply), 0)} pFOOD</StyledTotalCollectedFood>
-            <StyledGoal>
-              {t('goal', {
-                percent: progress,
-                goal: trim(formatEther(cap), 0),
-              })}
-            </StyledGoal>
-          </StyledCollectedArea>
-        </StyledInfoSection>
+              </StyledGoal>
+            </StyledCollectedArea>
+          </StyledInfoSection>
+          <ClamPhase
+            whitelistStageStartTime={whitelistStageStartTime}
+            publicStageStartTime={publicStageStartTime}
+            capPerAccount={capPerAccount}
+          />
+        </StyledBody>
       </StyledMain>
     </div>
   )

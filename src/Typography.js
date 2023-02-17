@@ -53,31 +53,18 @@ export const variants = {
     size: 13,
     lineHeight: 18,
   },
-  caption1: {
+  caption: {
     size: 12,
     lineHeight: 16,
   },
-  caption2: {
-    size: 11,
-    lineHeight: 15,
-  },
-  smallMark1: {
-    size: 11,
-    lineHeight: 15,
-    weight: '500', // medium
-  },
-  smallMark2: {
-    size: 9,
-    lineHeight: 12,
-    weight: '500', // medium
-  },
 }
 
-export const typography = ({ variant }) => css`
+export const typography = ({ variant, color }) => css`
   font-family: 'NeverMind';
   font-size: ${() => variants[variant].size}px;
   font-weight: ${() => variants[variant].weight ?? '400'};
   line-height: ${() => variants[variant].lineHeight}px;
+  ${color && `color: ${color};`}
 `
 
 export const Typography = styled.span`

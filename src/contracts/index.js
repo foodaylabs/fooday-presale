@@ -71,7 +71,7 @@ export const usePFoodInfo = () => {
   }
 }
 
-export const usePFoodPerClam = (clamAmount) => {
+export const usePFoodFromClam = (clamAmount) => {
   const addresses = useAddresses()
   const contract = usePFood()
   const result = useCall({

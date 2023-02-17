@@ -17,6 +17,7 @@
   "phase": "Phase {{phase}}",
   "phase_not_started": "Not started yet",
   "phase_ongoing": "Ongoing",
+  "phase_ended": "Ended",
   "phase_duration": "Duration: {{start}} ~ {{end}}",
   "clam_holder_phase": {
     "title": "CLAM Holder Presale",
@@ -29,7 +30,7 @@
   "dialog": {
     "purchase_amount": "Purchase amount",
     "max": "MAX",
-    "balance": "Your current balance: {{balance}}",
+    "balance": "Your current balance: ",
     "max_allowed": "(Max purchased amount allowed: {{max}} pFOOD)",
     "claim": "You will claim",
     "term": "Hereby I acknowledge that one wallet can only deposit once during CLAM holder pre-sale and agree to the token purchase agreement and token sale term."

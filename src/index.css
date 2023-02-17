@@ -11,6 +11,18 @@ h1,h2,h3,p {
   margin: 0;
 }
 
+input {
+  border: none;
+  outline: none;
+}
+
+button {
+  background: none;
+  border: none;
+  outline: none;
+  cursor: pointer;
+}
+
 code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
     monospace;
