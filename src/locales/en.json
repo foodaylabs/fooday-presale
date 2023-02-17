@@ -1,0 +1,42 @@
+{
+  "headline": "Get a Head Start on the Fooday Revolution",
+  "headline_desc": "As a qualified individual, you have the opportunity to be one of the first to invest in the future of restaurant review platform! By purchasing Food Coins during the pre-sale, you'll not only be supporting the development of the Fooday platform, but you'll also have the privilege of being one of the first to earn rewards for your contributions as a Foodie.",
+  "countdown_title": {
+    "pre_clam": "CLAM Holder Presale Coming In",
+    "in_clam": "CLAM Holder Presale Countdown",
+    "public": "Public Presale Countdown"
+  },
+  "day": "Days",
+  "hour": "Hours",
+  "minute": "Mins",
+  "second": "Secs",
+  "duration_clam": "CLAM Holder Sale: {{start}} ~ {{end}}",
+  "duration_public": "Public Sale: {{start}} ~ {{end}}",
+  "total_collected": "Total Collected",
+  "goal": "{{percent}}% of {{goal}} Goal",
+  "phase": "Phase {{phase}}",
+  "phase_not_started": "Not started yet",
+  "phase_ongoing": "Ongoing",
+  "phase_duration": "Duration: {{start}} ~ {{end}}",
+  "clam_holder_phase": {
+    "title": "CLAM Holder Presale",
+    "desc": "OtterClam members with $CLAM can purchase pFOOD with 10% OFF during phase 1. This is a limited-time offer, so be fast!"
+  },
+  "public_phase": {
+    "title": "Public Presale",
+    "desc": "By purchasing Food Coins now, you'll receive a promising price and be one of the first to join the Fooday community."
+  },
+  "dialog": {
+    "purchase_amount": "Purchase amount",
+    "max": "MAX",
+    "balance": "Your current balance: {{balance}}",
+    "max_allowed": "(Max purchased amount allowed: {{max}} pFOOD)",
+    "claim": "You will claim",
+    "term": "Hereby I acknowledge that one wallet can only deposit once during CLAM holder pre-sale and agree to the token purchase agreement and token sale term."
+  },
+  "success": {
+    "title": "Fooday-licious!",
+    "desc": "You've just taken a big bite out of the future of restaurant reviews by purchasing Food Coins!",
+    "hint": "To stay on top of the latest Fooday news and updates, be sure to give us a follow. Let's make some tasty things happen together!"
+  }
+}
