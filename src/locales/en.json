@@ -63,5 +63,18 @@
     }
   },
   "connect_desc": "Please connect your wallet to continue the purchase:",
-  "connect_btn": "Connect Wallet"
+  "connect_btn": "Connect Wallet",
+  "faq": {
+    "title": "FAQ",
+    "q1": "What is Food Coin?",
+    "a1": "Food Coin is the token of the Fooday platform, a new restaurant review platform that puts Foodies first and provides a more trustworthy and accurate source of information. Food Coins can be used within the platform, traded on cryptocurrency exchanges, and more.",
+    "q2": "What is Food Coin?",
+    "a2": "Food Coin is the token of the Fooday platform, a new restaurant review platform that puts Foodies first and provides a more trustworthy and accurate source of information. Food Coins can be used within the platform, traded on cryptocurrency exchanges, and more.",
+    "q3": "What is Food Coin?",
+    "a3": "Food Coin is the token of the Fooday platform, a new restaurant review platform that puts Foodies first and provides a more trustworthy and accurate source of information. Food Coins can be used within the platform, traded on cryptocurrency exchanges, and more.",
+    "q4": "What is Food Coin?",
+    "a4": "Food Coin is the token of the Fooday platform, a new restaurant review platform that puts Foodies first and provides a more trustworthy and accurate source of information. Food Coins can be used within the platform, traded on cryptocurrency exchanges, and more.",
+    "q5": "What is Food Coin?",
+    "a5": "Food Coin is the token of the Fooday platform, a new restaurant review platform that puts Foodies first and provides a more trustworthy and accurate source of information. Food Coins can be used within the platform, traded on cryptocurrency exchanges, and more."
+  }
 }

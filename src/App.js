@@ -6,6 +6,7 @@ import FoodCoin from './assets/food.png'
 import ClamPhase from './ClamPhase'
 import { usePFoodInfo } from './contracts'
 import Countdown from './Countdown'
+import Faq from './Faq'
 import Footer from './Footer'
 import Topbar from './Topbar'
 import { Typography } from './Typography'
@@ -52,7 +53,8 @@ const StyledBodyContainer = styled.div`
   max-width: 1088px;
   width: 100%;
   margin: 60px auto 0;
-  background: 89.53px top / 110.3px 646.14px no-repeat url(${PresaleImageUrl}), right 163.41px top / 51.85px 352.59px no-repeat url(${FoodcoinImageUrl});
+  background: 89.53px top / 110.3px 646.14px no-repeat url(${PresaleImageUrl}),
+    right 163.41px top / 51.85px 352.59px no-repeat url(${FoodcoinImageUrl});
 
   &::before {
     content: '';
@@ -138,6 +140,10 @@ const StyledGoal = styled(Typography).attrs({
   color: #545864;
 `
 
+const StyledFaq = styled(Faq)`
+  margin-top: 100px;
+`
+
 const END_TIME = new Date('2023-03-17T23:59:59.999Z')
 
 function App() {
@@ -219,6 +225,7 @@ function App() {
               pFoodPerUsd={pFoodPerUsd}
             />
           </StyledBody>
+          <StyledFaq />
         </StyledBodyContainer>
       </StyledMain>
       <Footer />
