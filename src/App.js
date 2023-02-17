@@ -1,4 +1,3 @@
-import { useEthers } from '@usedapp/core'
 import { formatEther } from 'ethers/lib/utils'
 import { useMemo, useState } from 'react'
 import { useTranslation } from 'react-i18next'
@@ -11,11 +10,15 @@ import Footer from './Footer'
 import Topbar from './Topbar'
 import { Typography } from './Typography'
 import { trim } from './utils/trim'
+import FoodcoinImageUrl from './assets/text-foodcoin.svg'
+import PresaleImageUrl from './assets/text-presale.svg'
+import EllipseImageUrl from './assets/ellipse.svg'
 
 const StyledMain = styled.main`
   display: flex;
   flex-direction: column;
   align-items: center;
+  overflow: hidden;
 `
 
 const StyledHeadlineContainer = styled.div`
@@ -37,14 +40,33 @@ const StyledHeadlineDesc = styled.p`
 
 const StyledBody = styled.div`
   width: 570px;
+  margin: 0 auto;
 
   @media (max-width: 600px) {
     width: 90%;
   }
 `
 
+const StyledBodyContainer = styled.div`
+  position: relative;
+  max-width: 1088px;
+  width: 100%;
+  margin: 60px auto 0;
+  background: 89.53px top / 110.3px 646.14px no-repeat url(${PresaleImageUrl}), right 163.41px top / 51.85px 352.59px no-repeat url(${FoodcoinImageUrl});
+
+  &::before {
+    content: '';
+    position: absolute;
+    width: 528px;
+    height: 459px;
+    background: center / cover url(${EllipseImageUrl});
+    z-index: -1;
+    left: -264px;
+    top: -306px;
+  }
+`
+
 const StyledInfoSection = styled.section`
-  margin-top: 60px;
   border-radius: 20px;
   overflow: hidden;
   border: 1px solid #000000;
@@ -153,49 +175,51 @@ function App() {
             <Typography variant="header1">{t('headline_desc')})</Typography>
           </StyledHeadlineDesc>
         </StyledHeadlineContainer>
-        <StyledBody>
-          <StyledInfoSection>
-            <StyledCountdownArea>
-              <StyledCountdownTitle>{t('countdown_title.' + phase)}</StyledCountdownTitle>
-              <StyledCountdown target={countdownTarget}></StyledCountdown>
-              <StyledSellDuration>
-                <Typography variant="header3" as="p">
-                  {t('duration_clam', {
-                    start: whitelistStageStartTime.toLocaleString(),
-                    end: publicStageStartTime.toLocaleString(),
-                  })}
+        <StyledBodyContainer>
+          <StyledBody>
+            <StyledInfoSection>
+              <StyledCountdownArea>
+                <StyledCountdownTitle>{t('countdown_title.' + phase)}</StyledCountdownTitle>
+                <StyledCountdown target={countdownTarget}></StyledCountdown>
+                <StyledSellDuration>
+                  <Typography variant="header3" as="p">
+                    {t('duration_clam', {
+                      start: whitelistStageStartTime.toLocaleString(),
+                      end: publicStageStartTime.toLocaleString(),
+                    })}
+                  </Typography>
+                  <Typography variant="header3" as="p">
+                    {t('duration_public', {
+                      start: publicStageStartTime.toLocaleString(),
+                      end: END_TIME.toLocaleString(),
+                    })}
+                  </Typography>
+                </StyledSellDuration>
+              </StyledCountdownArea>
+              <StyledCollectedArea>
+                <Typography variant="header2" as="h3">
+                  {t('total_collected')}
                 </Typography>
-                <Typography variant="header3" as="p">
-                  {t('duration_public', {
-                    start: publicStageStartTime.toLocaleString(),
-                    end: END_TIME.toLocaleString(),
+                <StyledProgressBar>
+                  <StyledProgressBarProgress progress={progress}></StyledProgressBarProgress>
+                </StyledProgressBar>
+                <StyledTotalCollectedFood>{trim(formatEther(totalSupply), 0)} pFOOD</StyledTotalCollectedFood>
+                <StyledGoal>
+                  {t('goal', {
+                    percent: progress,
+                    goal: trim(formatEther(cap), 0),
                   })}
-                </Typography>
-              </StyledSellDuration>
-            </StyledCountdownArea>
-            <StyledCollectedArea>
-              <Typography variant="header2" as="h3">
-                {t('total_collected')}
-              </Typography>
-              <StyledProgressBar>
-                <StyledProgressBarProgress progress={progress}></StyledProgressBarProgress>
-              </StyledProgressBar>
-              <StyledTotalCollectedFood>{trim(formatEther(totalSupply), 0)} pFOOD</StyledTotalCollectedFood>
-              <StyledGoal>
-                {t('goal', {
-                  percent: progress,
-                  goal: trim(formatEther(cap), 0),
-                })}
-              </StyledGoal>
-            </StyledCollectedArea>
-          </StyledInfoSection>
-          <ClamPhase
-            whitelistStageStartTime={whitelistStageStartTime}
-            publicStageStartTime={publicStageStartTime}
-            capPerAccount={capPerAccount}
-            pFoodPerUsd={pFoodPerUsd}
-          />
-        </StyledBody>
+                </StyledGoal>
+              </StyledCollectedArea>
+            </StyledInfoSection>
+            <ClamPhase
+              whitelistStageStartTime={whitelistStageStartTime}
+              publicStageStartTime={publicStageStartTime}
+              capPerAccount={capPerAccount}
+              pFoodPerUsd={pFoodPerUsd}
+            />
+          </StyledBody>
+        </StyledBodyContainer>
       </StyledMain>
       <Footer />
     </div>
