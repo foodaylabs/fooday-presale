@@ -1,20 +1,22 @@
 import { useCall, useCalls, useContractFunction, useEthers } from '@usedapp/core'
 import { BigNumber, constants, Contract } from 'ethers'
-import { parseUnits } from 'ethers/lib/utils'
 import { useEffect, useMemo, useState } from 'react'
-import PFood from './PFood.json'
 import ERC20 from './ERC20.json'
+import PFood from './PFood.json'
+import OtterMine from './OtterMine.json'
 
 const addresses = {
   137: {
     PFOOD: '0x0d90f283585569e6c284171f6646f37B43522D80',
     CLAM: '0x08a83ee393ac296326196a8f2dacbed91cd84762',
     DAI: '0x19907af68A173080c3e05bb53932B0ED541f6d20',
+    MINE: '0x5FA6f875b1b5370AbD1C786289E00Ab5Ac604291',
   },
   80001: {
     PFOOD: '0x0d90f283585569e6c284171f6646f37B43522D80',
     CLAM: '0x08a83ee393ac296326196a8f2dacbed91cd84762',
     DAI: '0x19907af68A173080c3e05bb53932B0ED541f6d20',
+    MINE: '0xD3d44995BB838D94080696ac8a55e014086446d9',
   },
 }
 
@@ -74,12 +76,22 @@ export const usePFoodInfo = () => {
 export const usePFoodFromClam = (clamAmount) => {
   const addresses = useAddresses()
   const contract = usePFood()
-  const result = useCall({
-    contract,
-    method: 'calcReceivedAmount',
-    args: [addresses.CLAM, clamAmount],
-  })
-  return result?.value?.[0]
+  const mine = new Contract(addresses.MINE, OtterMine)
+  const results = useCalls([
+    {
+      contract: mine,
+      method: 'usdPerClam',
+    },
+    {
+      contract,
+      method: 'calcReceivedAmount',
+      args: [addresses.CLAM, clamAmount],
+    },
+  ])
+  return {
+    usdPerClam: results?.[0]?.value?.[0],
+    pFoodAmount: results?.[1]?.value?.[0],
+  }
 }
 
 export const useMintWithClam = () => {
@@ -96,11 +108,21 @@ export const useMintWithClam = () => {
       state,
       status: 'Mining',
     })
-    const allowance = await clam.allowance(addresses.PFOOD, addresses.CLAM)
-    if (allowance.lt(amount)) {
-      await (await clam.approve(addresses.PFOOD, amount)).wait()
+    try {
+      const allowance = await clam.allowance(addresses.PFOOD, addresses.CLAM)
+      if (allowance.lt(amount)) {
+        await (await clam.approve(addresses.PFOOD, amount)).wait()
+      }
+      send(amount)
+    } catch (e) {
+      setMintState({
+        state: {
+          ...state,
+          errorMessage: e.message,
+        },
+        status: 'Exception',
+      })
     }
-    send(amount)
   }
   useEffect(() => {
     setMintState({

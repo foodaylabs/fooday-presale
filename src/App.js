@@ -107,7 +107,6 @@ const END_TIME = new Date('2023-03-17T23:59:59.999Z')
 
 function App() {
   const { t } = useTranslation()
-  const [clamAmount, setClamAmount] = useState('0')
   const { activateBrowserWallet, account } = useEthers()
   const { pFoodPerUsd, capPerAccount, whitelistStageStartTime, publicStageStartTime, totalSupply, cap } = usePFoodInfo()
   const [now, setNow] = useState(Date.now())
@@ -130,10 +129,6 @@ function App() {
     }
   }, [now, whitelistStageStartTime, publicStageStartTime])
   const progress = useMemo(() => totalSupply?.mul(100).div(cap).toString(), [totalSupply, cap])
-  const { mint, mintState, resetState } = useMintWithClam()
-  const addresses = useAddresses()
-  const daiBalance = useTokenBalance(addresses.DAI, account)
-  const pFoodBalance = useTokenBalance(addresses.PFOOD, account)
   return (
     <div>
       <header></header>
@@ -184,6 +179,7 @@ function App() {
             whitelistStageStartTime={whitelistStageStartTime}
             publicStageStartTime={publicStageStartTime}
             capPerAccount={capPerAccount}
+            pFoodPerUsd={pFoodPerUsd}
           />
         </StyledBody>
       </StyledMain>

@@ -33,7 +33,9 @@
     "balance": "Your current balance: ",
     "max_allowed": "(Max purchased amount allowed: {{max}} pFOOD)",
     "claim": "You will claim",
-    "term": "Hereby I acknowledge that one wallet can only deposit once during CLAM holder pre-sale and agree to the token purchase agreement and token sale term."
+    "term": "Hereby I acknowledge that one wallet can only deposit once during CLAM holder pre-sale and agree to the token purchase agreement and token sale term.",
+    "purchase": "Purchase",
+    "processing": "Processing"
   },
   "success": {
     "title": "Fooday-licious!",

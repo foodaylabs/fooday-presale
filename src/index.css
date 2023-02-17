@@ -23,6 +23,13 @@ button {
   cursor: pointer;
 }
 
+input[type="checkbox"] {
+  background-color: #fff;
+  margin: 0;
+  font: inherit;
+  color: black;
+}
+
 code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
     monospace;
