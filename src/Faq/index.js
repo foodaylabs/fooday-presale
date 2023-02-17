@@ -10,6 +10,13 @@ const StyledFaq = styled.section`
   width: 100%;
   display: flex;
   gap: 58px;
+  padding: 0 15px;
+
+  @media (max-width: 600px) {
+    width: 90%;
+    flex-direction: column;
+    align-items: center;
+  }
 `
 
 const StyledTitle = styled.h2`
@@ -24,6 +31,9 @@ const StyledImg = styled.img`
   width: 342px;
   height: 342px;
   margin-top: 48px;
+  @media (max-width: 600px) {
+    display: none;
+  }
 `
 
 const StyledFaqRow = styled.div`

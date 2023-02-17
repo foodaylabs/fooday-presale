@@ -15,6 +15,7 @@ import { trim } from './utils/trim'
 
 const StyledClamPhase = styled.section`
   position: relative;
+  background: #fff;
 `
 
 const StyledClamDiscount = styled.img`

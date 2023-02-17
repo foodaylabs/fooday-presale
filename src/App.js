@@ -73,6 +73,7 @@ const StyledInfoSection = styled.section`
   overflow: hidden;
   border: 1px solid #000000;
   margin-bottom: 20px;
+  background: #fff;
 `
 
 const StyledCountdownArea = styled.div`
