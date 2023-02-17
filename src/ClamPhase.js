@@ -324,10 +324,16 @@ export default function ClamPhase({ whitelistStageStartTime, publicStageStartTim
             </StyledHint>
             <StyledSubmitButton
               onClick={() => mint(parseUnits(clamAmount, 9))}
-              disabled={!isChecked || mintState.status !== 'None'}
+              disabled={phase === 'not_started' || !isChecked || mintState.status !== 'None'}
             >
               <Typography variant="header2">
-                {t(mintState.status !== 'None' ? 'dialog.processing' : 'dialog.purchase')}
+                {t(
+                  phase === 'not_started'
+                    ? 'phase_not_started'
+                    : mintState.status !== 'None'
+                    ? 'dialog.processing'
+                    : 'dialog.purchase'
+                )}
               </Typography>
             </StyledSubmitButton>
           </>

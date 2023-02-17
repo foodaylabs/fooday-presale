@@ -15,7 +15,7 @@
   "total_collected": "Total Collected",
   "goal": "{{percent}}% of {{goal}} Goal",
   "phase": "Phase {{phase}}",
-  "phase_not_started": "Not started yet",
+  "phase_not_started": "Not Started Yet",
   "phase_ongoing": "Ongoing",
   "phase_ended": "Ended",
   "phase_duration": "Duration: {{start}} ~ {{end}}",
