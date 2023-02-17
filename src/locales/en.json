@@ -48,6 +48,20 @@
       "waitlist": "Join Waitlist"
     }
   },
+  "footer": {
+    "about": {
+      "title": "About",
+      "content": "providing Fooides with an incentive to share their experiences and helping to create a trustworthy and accurate source of information for food lovers everywhere."
+    },
+    "media": {
+      "title": "Media"
+    },
+    "support": {
+      "title": "Support",
+      "docs": "Docs",
+      "email": "Contact us via email"
+    }
+  }
   "connect_desc": "Please connect your wallet to continue the purchase:",
   "connect_btn": "Connect Wallet"
 }
