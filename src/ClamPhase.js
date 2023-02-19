@@ -333,7 +333,9 @@ export default function ClamPhase({ whitelistStageStartTime, publicStageStartTim
                     ? 'phase_not_started'
                     : mintState.status !== 'None'
                     ? 'dialog.processing'
-                    : 'dialog.purchase'
+                    : isChecked
+                    ? 'dialog.purchase_btn'
+                    : 'dialog.please_agree_btn'
                 )}
               </Typography>
             </StyledSubmitButton>
