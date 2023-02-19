@@ -1,7 +1,7 @@
 {
   "files": {
     "main.css": "/static/css/main.daa28779.css",
-    "main.js": "/static/js/main.bfd0efc4.js",
+    "main.js": "/static/js/main.53f63e86.js",
     "static/js/787.dbe2b808.chunk.js": "/static/js/787.dbe2b808.chunk.js",
     "static/media/faq.png": "/static/media/faq.71781b7ee2ae1cd0b696.png",
     "static/media/clam-discount.svg": "/static/media/clam-discount.a1763d3d7369c7b5177bbf38366226b5.svg",
@@ -21,11 +21,11 @@
     "static/media/close.svg": "/static/media/close.a3a8ce8138ecdc1e2f75278ab4a1c5c1.svg",
     "static/media/minus.svg": "/static/media/minus.6057c87696810d6418fcfce5de5da13c.svg",
     "main.daa28779.css.map": "/static/css/main.daa28779.css.map",
-    "main.bfd0efc4.js.map": "/static/js/main.bfd0efc4.js.map",
+    "main.53f63e86.js.map": "/static/js/main.53f63e86.js.map",
     "787.dbe2b808.chunk.js.map": "/static/js/787.dbe2b808.chunk.js.map"
   },
   "entrypoints": [
     "static/css/main.daa28779.css",
-    "static/js/main.bfd0efc4.js"
+    "static/js/main.53f63e86.js"
   ]
 }
