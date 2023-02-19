@@ -36,7 +36,8 @@
     "term": "Hereby I  agree to the token purchase agreement and token sale term.",
     "purchase_btn": "Purchase",
     "processing": "Processing",
-    "please_agree_btn": "Please Agree Terms"
+    "please_agree_btn": "Please Agree Terms",
+    "switch_network_btn": " Switch To Polygon"
   },
   "success": {
     "title": "Fooday-licious!",

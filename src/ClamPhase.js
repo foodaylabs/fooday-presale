@@ -204,10 +204,10 @@ const StyledConnectContainer = styled.div`
 export default function ClamPhase({ whitelistStageStartTime, publicStageStartTime, capPerAccount, pFoodPerUsd }) {
   const { t } = useTranslation()
   const [now, setNow] = useState(Date.now())
-  const { account, activateBrowserWallet } = useEthers()
+  const { account, activateBrowserWallet, switchNetwork } = useEthers()
   const addresses = useAddresses()
-  const clamBalance = useTokenBalance(addresses.CLAM, account)
-  const pFoodBalance = useTokenBalance(addresses.PFOOD, account)
+  const clamBalance = useTokenBalance(addresses?.CLAM, account)
+  const pFoodBalance = useTokenBalance(addresses?.PFOOD, account)
   const [clamAmount, setClamAmount] = useState('1')
   const [isChecked, setIsChecked] = useState(false)
   const { usdPerClam, pFoodAmount } = usePFoodFromClam(parseUnits(clamAmount || '0', 9))
@@ -323,22 +323,31 @@ export default function ClamPhase({ whitelistStageStartTime, publicStageStartTim
                 {t('dialog.term')}
               </Typography>
             </StyledHint>
-            <StyledSubmitButton
-              onClick={() => mint(parseUnits(clamAmount, 9))}
-              disabled={phase === 'not_started' || !isChecked || mintState.status !== 'None'}
-            >
-              <Typography variant="header2">
-                {t(
-                  phase === 'not_started'
-                    ? 'phase_not_started'
-                    : mintState.status !== 'None'
-                    ? 'dialog.processing'
-                    : isChecked
-                    ? 'dialog.purchase_btn'
-                    : 'dialog.please_agree_btn'
-                )}
-              </Typography>
-            </StyledSubmitButton>
+            {!addresses && (
+              <StyledSubmitButton onClick={() => switchNetwork(137)}>
+                <Typography variant="header2">{t('dialog.switch_network_btn')}</Typography>
+              </StyledSubmitButton>
+            )}
+            {addresses && (
+              <StyledSubmitButton
+                onClick={() => mint(parseUnits(clamAmount, 9))}
+                disabled={phase === 'not_started' || !isChecked || mintState.status !== 'None'}
+              >
+                <Typography variant="header2">
+                  {t(
+                    !addresses
+                      ? 'dialog.switch_network_btn'
+                      : phase === 'not_started'
+                      ? 'phase_not_started'
+                      : mintState.status !== 'None'
+                      ? 'dialog.processing'
+                      : isChecked
+                      ? 'dialog.purchase_btn'
+                      : 'dialog.please_agree_btn'
+                  )}
+                </Typography>
+              </StyledSubmitButton>
+            )}
           </>
         )}
       </StyledBottomContainer>

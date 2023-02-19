@@ -27,38 +27,38 @@ export const useAddresses = () => {
 
 const usePFood = () => {
   const addresses = useAddresses()
-  return useMemo(() => new Contract(addresses.PFOOD, PFood), [addresses.PFOOD])
+  return useMemo(() => addresses && new Contract(addresses.PFOOD, PFood), [addresses])
 }
 
 const useERC20 = (address) => {
   const { library } = useEthers()
-  return useMemo(() => new Contract(address, ERC20, library?.getSigner()), [address, library])
+  return useMemo(() => address && new Contract(address, ERC20, library?.getSigner()), [address, library])
 }
 
 export const usePFoodInfo = () => {
   const contract = usePFood()
   const results = useCalls([
-    {
+    contract && {
       contract,
       method: 'pFoodPerUsd',
     },
-    {
+    contract && {
       contract,
       method: 'capPerAccount',
     },
-    {
+    contract && {
       contract,
       method: 'whitelistStageStartTime',
     },
-    {
+    contract && {
       contract,
       method: 'publicStageStartTime',
     },
-    {
+    contract && {
       contract,
       method: 'totalSupply',
     },
-    {
+    contract && {
       contract,
       method: 'cap',
     },
@@ -76,13 +76,13 @@ export const usePFoodInfo = () => {
 export const usePFoodFromClam = (clamAmount) => {
   const addresses = useAddresses()
   const contract = usePFood()
-  const mine = new Contract(addresses.MINE, OtterMine)
+  const mine = addresses && new Contract(addresses.MINE, OtterMine)
   const results = useCalls([
-    {
+    mine && {
       contract: mine,
       method: 'usdPerClam',
     },
-    {
+    contract && {
       contract,
       method: 'calcReceivedAmount',
       args: [addresses.CLAM, clamAmount],
@@ -97,7 +97,7 @@ export const usePFoodFromClam = (clamAmount) => {
 export const useMintWithClam = () => {
   const { account } = useEthers()
   const addresses = useAddresses()
-  const clam = useERC20(addresses.CLAM)
+  const clam = useERC20(addresses?.CLAM)
   const contract = usePFood()
   const { send, state, resetState } = useContractFunction(contract, 'mintByClam')
   const [mintState, setMintState] = useState({
