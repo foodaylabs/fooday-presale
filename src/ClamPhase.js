@@ -128,6 +128,8 @@ const StyledTokenBalance = styled(Typography).attrs({
 })`
   display: flex;
   align-items: center;
+  white-space: nowrap;
+
   &::after {
     content: '';
     display: inline-block;
@@ -138,7 +140,10 @@ const StyledTokenBalance = styled(Typography).attrs({
   }
 `
 
-const StyledDiscountContainer = styled.div``
+const StyledDiscountContainer = styled.div`
+  flex: 1;
+  display: flex;
+`
 
 const StyledDiscountTokenBalance = styled(StyledTokenBalance)`
   text-decoration: line-through;
@@ -155,7 +160,11 @@ const StyledOutputRow = styled.div`
 const StyledOutputHint = styled.div`
   display: flex;
   align-items: flex-start;
-  gap: 5px;
+  gap: 8px;
+
+  @media (max-width: 600px) {
+    flex-direction: column;
+  }
 `
 
 const StyledDiscountPrice = styled.div`
@@ -199,6 +208,11 @@ const StyledConnectContainer = styled.div`
   display: flex;
   flex-direction: column;
   gap: 30px;
+`
+
+const StyledTokenBalanceContainer = styled.span`
+  display: flex;
+  gap: 8px;
 `
 
 export default function ClamPhase({ whitelistStageStartTime, publicStageStartTime, capPerAccount, pFoodPerUsd }) {
@@ -288,8 +302,12 @@ export default function ClamPhase({ whitelistStageStartTime, publicStageStartTim
                 <Typography variant="header2">{pFoodAmount ? trim(formatEther(pFoodAmount), 4) : '-'}</Typography>
               </StyledOutputRow>
               <StyledOutputHint>
-                <StyledTokenBalance token={CLAM}>1 CLAM</StyledTokenBalance>=
-                <StyledTokenBalance token={DAI}>{usdPerClam ? formatEther(usdPerClam) : '-'} DAI</StyledTokenBalance>=
+                <StyledTokenBalanceContainer>
+                  <StyledTokenBalance token={CLAM}>1 CLAM</StyledTokenBalance>=
+                </StyledTokenBalanceContainer>
+                <StyledTokenBalanceContainer>
+                  <StyledTokenBalance token={DAI}>{usdPerClam ? formatEther(usdPerClam) : '-'} DAI</StyledTokenBalance>=
+                </StyledTokenBalanceContainer>
                 <StyledDiscountContainer>
                   <StyledDiscountTokenBalance token={FoodCoin}>
                     {pFoodPerUsd && usdPerClam
