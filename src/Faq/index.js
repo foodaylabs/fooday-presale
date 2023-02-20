@@ -89,7 +89,7 @@ const StyledFaqList = styled.section`
 
 export default function Faq({ className }) {
   const { t } = useTranslation('', { keyPrefix: 'faq' })
-  const seq = Array.from(Array(5).keys(), (x) => x + 1)
+  const seq = Array.from(Array(7).keys(), (x) => x + 1)
   return (
     <StyledFaq className={className}>
       <div>
