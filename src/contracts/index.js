@@ -94,6 +94,21 @@ export const usePFoodFromClam = (clamAmount) => {
   }
 }
 
+export const usePFoodFromDai = (daiAmount) => {
+  const addresses = useAddresses()
+  const contract = usePFood()
+  const results = useCalls([
+    contract && {
+      contract,
+      method: 'calcReceivedAmount',
+      args: [addresses.DAI, daiAmount],
+    },
+  ])
+  return {
+    pFoodAmount: results?.[0]?.value?.[0]?.div(BigNumber.from(10).pow(6)),
+  }
+}
+
 export const useMintWithClam = () => {
   const { account } = useEthers()
   const addresses = useAddresses()
