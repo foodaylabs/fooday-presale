@@ -7,7 +7,7 @@ const StyledContainer = styled.div`
   border-radius: 5px;
   width: 20px;
   height: 20px;
-  box-sizing: border-size;
+  box-sizing: border-box;
 
   ${({ checked }) => checked && `
     background: center / cover url(${IconUrl});
@@ -25,9 +25,10 @@ export default function Checkbox({
   checked = false,
   disabled = false,
   onChange = () => {},
+  className,
 }) {
   return (
-    <StyledContainer checked={checked}>
+    <StyledContainer checked={checked} className={className}>
       <StyledInput disabled={disabled} onChange={onChange} />
     </StyledContainer>
   )
