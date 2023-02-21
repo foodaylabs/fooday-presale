@@ -12,6 +12,7 @@ import { useAddresses, useMintWithClam, usePFoodFromClam } from './contracts'
 import SuccessDialog from './SuccessDialog'
 import { Typography } from './Typography'
 import { trim } from './utils/trim'
+import Checkbox from './Checkbox'
 
 const StyledClamPhase = styled.section`
   position: relative;
@@ -186,11 +187,9 @@ const StyledHint = styled.label`
   display: flex;
   gap: 20px;
   cursor: pointer;
+  align-items: center;
+  user-select: none;
 `
-
-const StyledHintCheckBox = styled.input.attrs({
-  type: 'checkbox',
-})``
 
 const StyledSubmitButton = styled.button`
   background: #000000;
@@ -332,7 +331,7 @@ export default function ClamPhase({ whitelistStageStartTime, publicStageStartTim
               </StyledOutputHint>
             </StyledInputContainer>
             <StyledHint>
-              <StyledHintCheckBox
+              <Checkbox
                 checked={isChecked}
                 disabled={mintState.status !== 'None'}
                 onChange={(e) => setIsChecked(e.target.checked)}
