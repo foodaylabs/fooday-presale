@@ -1,7 +1,7 @@
 {
   "files": {
     "main.css": "/static/css/main.daa28779.css",
-    "main.js": "/static/js/main.a3704f2c.js",
+    "main.js": "/static/js/main.8ba18826.js",
     "static/js/787.dbe2b808.chunk.js": "/static/js/787.dbe2b808.chunk.js",
     "static/media/faq.png": "/static/media/faq.71781b7ee2ae1cd0b696.png",
     "static/media/clam-discount.svg": "/static/media/clam-discount.a1763d3d7369c7b5177bbf38366226b5.svg",
@@ -19,13 +19,14 @@
     "static/media/ellipse.svg": "/static/media/ellipse.3002181168116aed247324c2eafd9873.svg",
     "static/media/plus.svg": "/static/media/plus.e67f4d2e3612bbe0e260e114c9083def.svg",
     "static/media/close.svg": "/static/media/close.a3a8ce8138ecdc1e2f75278ab4a1c5c1.svg",
+    "static/media/checkbox.svg": "/static/media/checkbox.b6e2e935dd39a7ca6c0b2f5d089b9494.svg",
     "static/media/minus.svg": "/static/media/minus.6057c87696810d6418fcfce5de5da13c.svg",
     "main.daa28779.css.map": "/static/css/main.daa28779.css.map",
-    "main.a3704f2c.js.map": "/static/js/main.a3704f2c.js.map",
+    "main.8ba18826.js.map": "/static/js/main.8ba18826.js.map",
     "787.dbe2b808.chunk.js.map": "/static/js/787.dbe2b808.chunk.js.map"
   },
   "entrypoints": [
     "static/css/main.daa28779.css",
-    "static/js/main.a3704f2c.js"
+    "static/js/main.8ba18826.js"
   ]
 }
