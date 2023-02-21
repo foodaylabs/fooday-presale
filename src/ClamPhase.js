@@ -214,6 +214,11 @@ const StyledTokenBalanceContainer = styled.span`
   gap: 8px;
 `
 
+const StyledCheckbox = styled(Checkbox)`
+  flex: 0 20px;
+  min-width: 20px;
+`
+
 export default function ClamPhase({ whitelistStageStartTime, publicStageStartTime, capPerAccount, pFoodPerUsd }) {
   const { t } = useTranslation()
   const [now, setNow] = useState(Date.now())
@@ -331,7 +336,7 @@ export default function ClamPhase({ whitelistStageStartTime, publicStageStartTim
               </StyledOutputHint>
             </StyledInputContainer>
             <StyledHint>
-              <Checkbox
+              <StyledCheckbox
                 checked={isChecked}
                 disabled={mintState.status !== 'None'}
                 onChange={(e) => setIsChecked(e.target.checked)}
