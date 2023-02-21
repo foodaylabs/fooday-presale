@@ -5,7 +5,7 @@ import { useTranslation } from 'react-i18next'
 import styled from 'styled-components/macro'
 import DAI from './assets/dai.png'
 import FoodCoin from './assets/food.png'
-import { useAddresses, useMintWithClam, usePFoodFromDai } from './contracts'
+import { useAddresses, useMint, usePFoodFromDai } from './contracts'
 import SuccessDialog from './SuccessDialog'
 import { Typography } from './Typography'
 import { trim } from './utils/trim'
@@ -226,7 +226,7 @@ export default function PublicPhase({ whitelistStageStartTime, publicStageStartT
   const { pFoodAmount } = usePFoodFromDai(parseUnits(daiAmount || '0', 18))
   const started = publicStageStartTime < now
   const phase = !started ? 'not_started' : 'ongoing'
-  const { mint, mintState, resetState } = useMintWithClam()
+  const { mint, mintState, resetState } = useMint()
   const onMax = () => {
     const daiCapPerAccount = capPerAccount
       .sub(pFoodBalance)
@@ -323,7 +323,7 @@ export default function PublicPhase({ whitelistStageStartTime, publicStageStartT
               )}
               {addresses && (
                 <StyledSubmitButton
-                  onClick={() => mint(parseUnits(daiAmount, 9))}
+                  onClick={() => mint(parseUnits(daiAmount, 18))}
                   disabled={phase === 'not_started' || !isChecked || mintState.status !== 'None'}
                 >
                   <Typography variant="header2">
