@@ -328,7 +328,10 @@ export default function ClamPhase({ whitelistStageStartTime, publicStageStartTim
                     <StyledTokenBalance token={CLAM}>1 CLAM</StyledTokenBalance>=
                   </StyledTokenBalanceContainer>
                   <StyledTokenBalanceContainer>
-                    <StyledTokenBalance token={DAI}>{usdPerClam ? formatEther(usdPerClam) : '-'} DAI</StyledTokenBalance>=
+                    <StyledTokenBalance token={DAI}>
+                      {usdPerClam ? formatEther(usdPerClam) : '-'} DAI
+                    </StyledTokenBalance>
+                    =
                   </StyledTokenBalanceContainer>
                   <StyledDiscountContainer>
                     <StyledDiscountTokenBalance token={FoodCoin}>
@@ -407,7 +410,9 @@ export default function ClamPhase({ whitelistStageStartTime, publicStageStartTim
           <StyledDesc>{t('public_phase.desc')}</StyledDesc>
         </StyledTopContainer>
         <StyledBottomContainer2>
-          <Typography variant="body">{t('phase_duration', { start: publicStageStartTime.toLocaleString(), end: END_TIME.toLocaleString() })}</Typography>
+          <Typography variant="body">
+            {t('phase_duration', { start: publicStageStartTime.toLocaleString(), end: END_TIME.toLocaleString() })}
+          </Typography>
         </StyledBottomContainer2>
       </StyledClamPhase>
     </StyledContainer>

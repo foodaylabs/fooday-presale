@@ -146,7 +146,7 @@ const StyledFaq = styled(Faq)`
   margin-top: 100px;
 `
 
-const END_TIME = new Date('2023-03-17T23:59:59.999Z')
+const END_TIME = new Date('2023-05-17T23:59:59.999Z')
 
 function App() {
   const { t } = useTranslation()
