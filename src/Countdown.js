@@ -43,9 +43,9 @@ const StyledColon = styled(Typography).attrs({
 export default function Countdown({ target }) {
   const { t } = useTranslation()
   const [now, setNow] = useState(Date.now())
-  const countdown = useMemo(() => {
-    if (now > target) return intervalToDuration({ start: target, end: now })
-    return intervalToDuration({ start: now, end: target })
+  const [countdown, days] = useMemo(() => {
+    const [start, end] = target > now ? [now, target] : [target, now]
+    return [intervalToDuration({ start: now, end: target }), Math.round((end - start) / 86400000)]
   }, [now, target])
   useEffect(() => {
     const interval = setInterval(() => {
@@ -55,7 +55,7 @@ export default function Countdown({ target }) {
   }, [])
   return (
     <StyledCountdown>
-      <CountdownDigit label={t('day')} value={countdown.days} />
+      <CountdownDigit label={t('day')} value={days} />
       <StyledColon>:</StyledColon>
       <CountdownDigit label={t('hour')} value={countdown.hours} />
       <StyledColon>:</StyledColon>
