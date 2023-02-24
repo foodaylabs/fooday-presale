@@ -4,6 +4,7 @@ import { useTranslation } from 'react-i18next'
 import styled from 'styled-components/macro'
 import FoodCoin from './assets/food.png'
 import ClamPhase from './ClamPhase'
+import PublicPhase from './PublicPhase'
 import { usePFoodInfo } from './contracts'
 import Countdown from './Countdown'
 import Faq from './Faq'
@@ -219,12 +220,24 @@ function App() {
                 </StyledGoal>
               </StyledCollectedArea>
             </StyledInfoSection>
-            <ClamPhase
-              whitelistStageStartTime={whitelistStageStartTime}
-              publicStageStartTime={publicStageStartTime}
-              capPerAccount={capPerAccount}
-              pFoodPerUsd={pFoodPerUsd}
-            />
+
+            {phase === 'in_clam' && (
+              <ClamPhase
+                whitelistStageStartTime={whitelistStageStartTime}
+                publicStageStartTime={publicStageStartTime}
+                capPerAccount={capPerAccount}
+                pFoodPerUsd={pFoodPerUsd}
+              />
+            )}
+
+            {phase === 'public' && (
+              <PublicPhase
+                whitelistStageStartTime={whitelistStageStartTime}
+                publicStageStartTime={publicStageStartTime}
+                capPerAccount={capPerAccount}
+                pFoodPerUsd={pFoodPerUsd}
+              />
+            )}
           </StyledBody>
           <StyledFaq />
         </StyledBodyContainer>

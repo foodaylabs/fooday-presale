@@ -94,6 +94,61 @@ export const usePFoodFromClam = (clamAmount) => {
   }
 }
 
+export const usePFoodFromDai = (daiAmount) => {
+  const addresses = useAddresses()
+  const contract = usePFood()
+  const results = useCalls([
+    contract && {
+      contract,
+      method: 'calcReceivedAmount',
+      args: [addresses.DAI, daiAmount],
+    },
+  ])
+  return {
+    pFoodAmount: results?.[0]?.value?.[0]?.div(BigNumber.from(10).pow(6)),
+  }
+}
+
+export const useMint = () => {
+  const { account } = useEthers()
+  const addresses = useAddresses()
+  const dai = useERC20(addresses?.DAI)
+  const contract = usePFood()
+  const { send, state, resetState } = useContractFunction(contract, 'mint')
+  const [mintState, setMintState] = useState({
+    state,
+    status: state.status,
+  })
+  const mint = async (amount) => {
+    setMintState({
+      state,
+      status: 'Mining',
+    })
+    try {
+      const allowance = await dai.allowance(account, addresses.PFOOD)
+      if (allowance.lt(amount)) {
+        await (await dai.approve(addresses.PFOOD, amount)).wait()
+      }
+      send(amount)
+    } catch (e) {
+      setMintState({
+        state: {
+          ...state,
+          errorMessage: e.message,
+        },
+        status: 'Exception',
+      })
+    }
+  }
+  useEffect(() => {
+    setMintState({
+      state,
+      status: state.status,
+    })
+  }, [state])
+  return { mint, mintState, resetState }
+}
+
 export const useMintWithClam = () => {
   const { account } = useEthers()
   const addresses = useAddresses()

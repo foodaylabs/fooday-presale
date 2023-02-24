@@ -1,20 +1,15 @@
 import { useEthers, useTokenBalance } from '@usedapp/core'
-import { BigNumber } from 'ethers'
 import { formatEther, formatUnits, parseUnits } from 'ethers/lib/utils'
 import { useEffect, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import styled from 'styled-components/macro'
-import ClamDiscount from './assets/clam-discount.svg'
-import CLAM from './assets/clam.png'
 import DAI from './assets/dai.png'
 import FoodCoin from './assets/food.png'
-import { useAddresses, useMintWithClam, usePFoodFromClam } from './contracts'
+import { useAddresses, useMint, usePFoodFromDai } from './contracts'
 import SuccessDialog from './SuccessDialog'
 import { Typography } from './Typography'
 import { trim } from './utils/trim'
 import Checkbox from './Checkbox'
-
-const END_TIME = new Date('2023-03-17T23:59:59.999Z')
 
 const StyledContainer = styled.div`
   display: flex;
@@ -25,19 +20,6 @@ const StyledContainer = styled.div`
 const StyledClamPhase = styled.section`
   position: relative;
   background: #fff;
-`
-
-const StyledClamDiscount = styled.img`
-  position: absolute;
-  width: 143px;
-  height: 143px;
-  top: -24px;
-  right: 0;
-
-  @media (max-width: 600px) {
-    top: -70px;
-    right: -20px;
-  }
 `
 
 const StyledTopContainer = styled.div`
@@ -60,7 +42,7 @@ const StyledPhaseStatus = styled.span`
 `
 
 const StyledPhaseStatus2 = styled.span`
-  color: #a1a7ba;
+  color: #ee5537;
   margin-left: 10px;
 `
 
@@ -163,10 +145,6 @@ const StyledDiscountContainer = styled.div`
   display: flex;
 `
 
-const StyledDiscountTokenBalance = styled(StyledTokenBalance)`
-  text-decoration: line-through;
-`
-
 const StyledOutputRow = styled.div`
   background: #ffffff;
   border-radius: 10px;
@@ -236,29 +214,25 @@ const StyledCheckbox = styled(Checkbox)`
   min-width: 20px;
 `
 
-export default function ClamPhase({ whitelistStageStartTime, publicStageStartTime, capPerAccount, pFoodPerUsd }) {
+export default function PublicPhase({ whitelistStageStartTime, publicStageStartTime, capPerAccount, pFoodPerUsd }) {
   const { t } = useTranslation()
   const [now, setNow] = useState(Date.now())
   const { account, activateBrowserWallet, switchNetwork } = useEthers()
   const addresses = useAddresses()
-  const clamBalance = useTokenBalance(addresses?.CLAM, account)
+  const daiBalance = useTokenBalance(addresses?.DAI, account)
   const pFoodBalance = useTokenBalance(addresses?.PFOOD, account)
-  const [clamAmount, setClamAmount] = useState('1')
+  const [daiAmount, setDAIAmount] = useState('1')
   const [isChecked, setIsChecked] = useState(false)
-  const { usdPerClam, pFoodAmount } = usePFoodFromClam(parseUnits(clamAmount || '0', 9))
-  const started = whitelistStageStartTime < now
-  const ended = publicStageStartTime < now
-  const phase = !started ? 'not_started' : ended ? 'ended' : 'ongoing'
-  const { mint, mintState, resetState } = useMintWithClam()
+  const { pFoodAmount } = usePFoodFromDai(parseUnits(daiAmount || '0', 18))
+  const started = publicStageStartTime < now
+  const phase = !started ? 'not_started' : 'ongoing'
+  const { mint, mintState, resetState } = useMint()
   const onMax = () => {
-    const clamCapPerAccount = capPerAccount
+    const daiCapPerAccount = capPerAccount
       .sub(pFoodBalance)
-      .mul(BigNumber.from(10).pow(27))
-      .div(pFoodPerUsd.mul(10000).div(9000))
-      .div(usdPerClam)
-    console.log(clamCapPerAccount.toString())
-    const max = clamBalance?.gt(clamCapPerAccount) ? clamCapPerAccount : clamBalance
-    setClamAmount(formatUnits(max, 9))
+      .div(10)
+    const max = daiBalance?.gt(daiCapPerAccount) ? daiCapPerAccount : daiBalance
+    setDAIAmount(formatUnits(max, 9))
   }
   useEffect(() => {
     if (mintState.status === 'Fail' || mintState.status === 'Exception') {
@@ -271,11 +245,11 @@ export default function ClamPhase({ whitelistStageStartTime, publicStageStartTim
       <StyledClamPhase>
         <StyledTopContainer>
           <StyledPhase>
-            {t('phase', { phase: 1 })}
+            {t('phase', { phase: 2 })}
             <StyledPhaseStatus>{t('phase', { context: phase })}</StyledPhaseStatus>
           </StyledPhase>
-          <StyledTitle>{t('clam_holder_phase.title')}</StyledTitle>
-          <StyledDesc>{t('clam_holder_phase.desc')}</StyledDesc>
+          <StyledTitle>{t('public_phase.title')}</StyledTitle>
+          <StyledDesc>{t('public_phase.desc')}</StyledDesc>
         </StyledTopContainer>
         <StyledBottomContainer>
           {!account && (
@@ -294,24 +268,24 @@ export default function ClamPhase({ whitelistStageStartTime, publicStageStartTim
                   <StyledMaxButton onClick={onMax}>{t('dialog.max')}</StyledMaxButton>
                 </StyledMaxContainer>
                 <StyledTokenInputRow>
-                  <StyledToken token={CLAM}>CLAM</StyledToken>
+                  <StyledToken token={DAI}>DAI</StyledToken>
                   <StyledInput
                     placeholder="0"
-                    value={clamAmount}
+                    value={daiAmount}
                     min={0}
                     disabled={mintState.status !== 'None'}
                     onChange={(e) => {
                       if (e.target.value === '') {
-                        setClamAmount('')
+                        setDAIAmount('')
                       } else if (Number(e.target.value)) {
-                        setClamAmount(e.target.value)
+                        setDAIAmount(e.target.value)
                       }
                     }}
                   />
                 </StyledTokenInputRow>
-                <StyledTokenBalance token={CLAM}>
+                <StyledTokenBalance token={DAI}>
                   {t('dialog.balance')}
-                  {clamBalance ? trim(formatUnits(clamBalance, 9), 2) : '-'} CLAM
+                  {daiBalance ? trim(formatUnits(daiBalance, 9), 2) : '-'} DAI
                 </StyledTokenBalance>
                 <Typography as="p" color="#545864" variant="caption">
                   {t('dialog.max_allowed', { max: trim(formatEther(capPerAccount)) })}
@@ -325,31 +299,10 @@ export default function ClamPhase({ whitelistStageStartTime, publicStageStartTim
                 </StyledOutputRow>
                 <StyledOutputHint>
                   <StyledTokenBalanceContainer>
-                    <StyledTokenBalance token={CLAM}>1 CLAM</StyledTokenBalance>=
-                  </StyledTokenBalanceContainer>
-                  <StyledTokenBalanceContainer>
-                    <StyledTokenBalance token={DAI}>{usdPerClam ? formatEther(usdPerClam) : '-'} DAI</StyledTokenBalance>=
+                    <StyledTokenBalance token={DAI}>1 DAI</StyledTokenBalance>=
                   </StyledTokenBalanceContainer>
                   <StyledDiscountContainer>
-                    <StyledDiscountTokenBalance token={FoodCoin}>
-                      {pFoodPerUsd && usdPerClam
-                        ? trim(formatEther(pFoodPerUsd.mul(usdPerClam).div(BigNumber.from('10').pow(18))), 1)
-                        : '-'}{' '}
-                      pFOOD
-                    </StyledDiscountTokenBalance>
-                    <StyledDiscountPrice>
-                      <Typography variant="header2" color="#EE5537">
-                        {pFoodPerUsd && usdPerClam
-                          ? trim(
-                              formatEther(
-                                pFoodPerUsd.mul(usdPerClam).mul(10000).div(9000).div(BigNumber.from('10').pow(18))
-                              ),
-                              2
-                            )
-                          : '-'}
-                      </Typography>
-                      <StyledDiscountLabel>10% Off</StyledDiscountLabel>
-                    </StyledDiscountPrice>
+                    <StyledTokenBalance token={FoodCoin}>10 pFOOD</StyledTokenBalance>
                   </StyledDiscountContainer>
                 </StyledOutputHint>
               </StyledInputContainer>
@@ -370,7 +323,7 @@ export default function ClamPhase({ whitelistStageStartTime, publicStageStartTim
               )}
               {addresses && (
                 <StyledSubmitButton
-                  onClick={() => mint(parseUnits(clamAmount, 9))}
+                  onClick={() => mint(parseUnits(daiAmount, 18))}
                   disabled={phase === 'not_started' || !isChecked || mintState.status !== 'None'}
                 >
                   <Typography variant="header2">
@@ -391,7 +344,6 @@ export default function ClamPhase({ whitelistStageStartTime, publicStageStartTim
             </>
           )}
         </StyledBottomContainer>
-        <StyledClamDiscount src={ClamDiscount} />
         {mintState.status === 'Success' && (
           <SuccessDialog pFoodAmount={trim(formatEther(pFoodAmount), 4)} onClose={() => resetState()} />
         )}
@@ -400,14 +352,14 @@ export default function ClamPhase({ whitelistStageStartTime, publicStageStartTim
       <StyledClamPhase>
         <StyledTopContainer>
           <StyledPhase>
-            {t('phase', { phase: 2 })}
-            <StyledPhaseStatus2>{t('phase', { context: 'not_started' })}</StyledPhaseStatus2>
+            {t('phase', { phase: 1 })}
+            <StyledPhaseStatus2>{t('phase', { context: 'ended' })}</StyledPhaseStatus2>
           </StyledPhase>
-          <StyledTitle>{t('public_phase.title')}</StyledTitle>
-          <StyledDesc>{t('public_phase.desc')}</StyledDesc>
+          <StyledTitle>{t('clam_holder_phase.title')}</StyledTitle>
+          <StyledDesc>{t('clam_holder_phase.desc')}</StyledDesc>
         </StyledTopContainer>
         <StyledBottomContainer2>
-          <Typography variant="body">{t('phase_duration', { start: publicStageStartTime.toLocaleString(), end: END_TIME.toLocaleString() })}</Typography>
+          <Typography variant="body">{t('phase_duration', { start: whitelistStageStartTime.toLocaleString(), end: publicStageStartTime.toLocaleString() })}</Typography>
         </StyledBottomContainer2>
       </StyledClamPhase>
     </StyledContainer>
