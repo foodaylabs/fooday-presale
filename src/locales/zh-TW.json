@@ -1,0 +1,136 @@
+{
+  "headline": "Get a Head Start on the Fooday Revolution",
+  "headline_desc": "As a qualified individual, you have the opportunity to be one of the first to invest in the future of restaurant review platform! By purchasing Food Coins during the pre-sale, you'll not only be supporting the development of the Fooday platform, but you'll also have the privilege of being one of the first to earn rewards for your contributions as a Foodie.",
+  "countdown_title": {
+    "pre_clam": "CLAM Holder Presale Coming In",
+    "in_clam": "CLAM Holder Presale Countdown",
+    "public": "Public Presale Countdown"
+  },
+  "day": "Days",
+  "hour": "Hours",
+  "minute": "Mins",
+  "second": "Secs",
+  "duration_clam": "CLAM Holder Sale: {{start}} ~ {{end}}",
+  "duration_public": "Public Sale: {{start}} ~ {{end}}",
+  "total_collected": "Total Collected",
+  "goal": "{{percent}}% of {{goal}} Goal",
+  "phase": "Phase {{phase}}",
+  "phase_not_started": "Not Started Yet",
+  "phase_ongoing": "Ongoing",
+  "phase_ended": "Ended",
+  "phase_duration": "Duration: {{start}} ~ {{end}}",
+  "clam_holder_phase": {
+    "title": "CLAM Holder Presale",
+    "desc": "OtterClam members with $CLAM can purchase pFOOD with 10% OFF during phase 1. This is a limited-time offer, so be fast!"
+  },
+  "public_phase": {
+    "title": "Public Presale",
+    "desc": "By purchasing Food Coins now, you'll receive a promising price and be one of the first to join the Fooday community."
+  },
+  "dialog": {
+    "purchase_amount": "Purchase amount",
+    "max": "MAX",
+    "balance": "Your current balance: ",
+    "max_allowed": "(Max purchased amount allowed: {{max}} pFOOD)",
+    "claim": "You will claim",
+    "term": "Hereby I  agree to the token purchase agreement and token sale term.",
+    "purchase_btn": "Purchase",
+    "processing": "Processing",
+    "please_agree_btn": "Please Agree Terms",
+    "switch_network_btn": " Switch To Polygon"
+  },
+  "success": {
+    "title": "Fooday-licious!",
+    "desc": "You've just taken a big bite out of the future of restaurant reviews by purchasing Food Coins!",
+    "hint": "To stay on top of the latest Fooday news and updates, be sure to give us a follow. Let's make some tasty things happen together!"
+  },
+  "topbar": {
+    "links": {
+      "docs": "Docs",
+      "waitlist": "Join Waitlist"
+    }
+  },
+  "footer": {
+    "about": {
+      "title": "About",
+      "content": "Providing Foodies with an incentive to share their experiences and helping to create a trustworthy and accurate source of information for food lovers everywhere."
+    },
+    "media": {
+      "title": "Media"
+    },
+    "support": {
+      "title": "Support",
+      "docs": "Docs",
+      "email": "Contact us via email"
+    }
+  },
+  "connect_desc": "Please connect your wallet to continue the purchase:",
+  "connect_btn": "Connect Wallet",
+  "faq": {
+    "title": "FAQ",
+    "q1": "What is Fooday?",
+    "a1": "Fooday is a new restaurant review platform that puts Foodies first and provides a more trustworthy and accurate source of information. The platform is designed to incentivize Foodies to leave accurate and detailed reviews, while also promoting positive behavior within the community.",
+    "q2": "What is Food Coin?",
+    "a2": " Food Coin is the token of the Fooday platform, a new restaurant review platform that puts Foodies first and provides a more trustworthy and accurate source of information. Food Coins can be used within the platform, traded on cryptocurrency exchanges, and more.",
+    "q3": "What is the Food Coin pre-sale?",
+    "a3": "The Food Coin pre-sale is an opportunity for qualified individuals to purchase Food Coins, the token of the Fooday platform, at a discounted price. This is a limited-time offer and provides the opportunity to invest in the future of restaurant reviews and be one of the first to earn rewards as a Foodie on the Fooday platform.",
+    "q4": " Is there a limit on the number of Food Coins I can purchase during the pre-sale?",
+    "a4": "Yes, there is a limit on the number of Food Coins that can be purchased during the pre-sale. Please check the pre-sale page for more information on the availability of Food Coins.",
+    "q5": "What is the genesis total supply of FOOD?",
+    "a5": "The total supply of FOOD is 10,000,000. 25% of FOOD is allocated for community sale, 25% for the team, and 50% for the Fooday treasury.",
+    "q6": "What is the vesting term for pre-sale Food Coins?",
+    "a6": "Participants of the pre-sale will have their $pFOOD tokens vested over a period of one year, with an initial release equivalent to roughly 50% of the total amount after 180 days, followed by a drip release of the remaining tokens over the next 185 days.",
+    "q7": "What is the vesting term for the team tokens?",
+    "a7": "The team tokens will be vested over a period of 2 years, with an initial release equivalent to roughly 50% of the total amount after 1 year, followed by a drip release of the remaining tokens over the next 365 days."
+  },
+  "mintCard": {
+    "title": "Purchase pFOOD now",
+    "guest": {
+      "message": "Please connect your wallet to continue the purchase",
+      "connectButton": "Connect Wallet"
+    },
+    "preview": {
+      "title": "You will claim",
+      "currentClaimed": "Your current claimed",
+      "newClaimed": "New claimed",
+      "newUpdatedBalance": "New updated balance"
+    },
+    "agreementNote": "Hereby I  agree to the token purchase agreement and token sale term.",
+    "purchaseButton": "Purchase"
+  },
+  "tokenAmountInput": {
+    "amount": "Purchase amount",
+    "maxButton": "Max",
+    "listTitle": "Select a token",
+    "balance": "Your current balance: {{balance}} {{token}}",
+    "maxAmountNote": "(Max purchased amount allowed: 50,000 pFOOD)"
+  },
+  "rewardCard": {
+    "title": "Your Level & Rewards",
+    "currStatusLabel": "Your current status",
+    "rewardsLabel": "Rewards",
+    "purchasedAmount": "You’ve purchased {{amount}} pFOOD",
+    "nextLevelNote": "Purchase more <b>{{amount}}</b> pFOOD during the presale to unlock Level {{level}} presale rewards."
+  },
+  "airdropCard": {
+    "title": "Free Fooca Camera Airdrops",
+    "subTitle": "Exclusive to pFOOD Presale Participants!",
+    "message": "Reach or exceed certain amounts of pFOOD tokens, and you'll be eligible for the corresponding number of Fooca Cameras. The more pFOOD tokens you purchase, the more Fooca Cameras you'll receive.",
+    "rewards": {
+      "title": "Level tiers & reward lists",
+      "level": "Level",
+      "minPurchased": "Minimum purchased",
+      "rewards": "Rewards",
+      "unlocked": "You have unlocked this level",
+      "genesisFoocaCamera": "Genesis Fooca Camera",
+      "note": "Please note that the free Fooca Cameras will be airdropped to eligible participants after the pFOOD presale ends. Stay tuned for more information on when the airdrop will take place."
+    }
+  },
+  "presaleCard": {
+    "ongoing": "Ongoing",
+    "title": "pFOOD Presale",
+    "message": "<p>By purchasing Food Coins now, you'll receive a promising price and be one of the first to join the Fooday community.</p><p>OtterClam members with CLAM can purchase pFOOD with 10% OFF during phase 1. This is a limited-time offer, so be fast!</p>",
+    "countdownTitle": "pFOOD Presale Countdown",
+    "presaleDuration": "Public Sale: {{start}} ~ {{end}}"
+  }
+}
