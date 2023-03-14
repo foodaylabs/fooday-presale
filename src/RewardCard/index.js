@@ -109,7 +109,6 @@ export default function RewardCard() {
   const balance = useTokenBalance(addresses?.PFOOD, account) ?? constants.Zero
   const balanceNumber = Number(formatEther(balance))
   const level = pfoodToLevel(balanceNumber)
-  console.log('level: ', level)
   const amountToNextLevel = parseEther(String(calcAmountToNextLevel(balanceNumber)))
   const currLevelRequiredAmount = parseEther(String(amountOfLevel(level)))
   const nextLevelRequiredAmount = parseEther(String(amountOfLevel(level + 1)))

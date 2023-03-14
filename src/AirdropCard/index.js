@@ -98,7 +98,7 @@ const StyledLevels = styled.div`
 const StyledLevel = styled.div`
     display: flex;
     position: relative;
-    border: 2px solid #CCD4E3;
+    border: 2px solid #ffb82e;
     border-radius: 10px;
     background: #fff;
     padding: 12px 15px;
@@ -110,7 +110,6 @@ const StyledLevel = styled.div`
     `}
 
     ${({ isCurrentLevel }) => isCurrentLevel && `
-        border-color: #ffb82e;
         padding-top: 42px;
 
         &::before {
@@ -137,7 +136,7 @@ const StyledLevelTag = styled(Typography).attrs({ variant: 'body' })`
     display: flex;
     align-items: center;
     justify-content: center;
-    background: #a1a7ba;
+    background: #ffb82e;
     border-radius: 15px;
     width: 85px;
     height: 30px;
@@ -150,10 +149,6 @@ const StyledLevelTag = styled(Typography).attrs({ variant: 'body' })`
         height: 12px;
         background: center / cover url('${({ locked }) => locked ? lockedIcon : unlockedIcon}');
     }
-
-    ${({ isCurrentLevel }) => isCurrentLevel && `
-        background: #ffb82e;
-    `}
 
     ${({ locked }) => locked && `
         background: #fff;
@@ -198,7 +193,7 @@ export default function AirdropCard() {
                 <StyledRewardsCol>{t('airdropCard.rewards.rewards')}</StyledRewardsCol>
             </StyledListHead>
             <StyledLevels>
-                {levels.map(({ level, minimum }) => (
+                {levels.slice(1).map(({ level, minimum }) => (
                     <StyledLevel
                         key={level}
                         data-title={t('airdropCard.rewards.unlocked')}
