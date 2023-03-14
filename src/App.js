@@ -57,7 +57,7 @@ const StyledBodyContainer = styled.div`
 
 const StyledCards = styled.div`
   display: flex;
-  gap: 130px;
+  gap: 60px;
 
   @media (max-width: 768px) {
     flex-direction: column;
@@ -66,8 +66,17 @@ const StyledCards = styled.div`
   }
 `
 
-const StyledCardsColumn = styled.div`
+const StyledCardsRightColumn = styled.div`
   flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  position: relative;
+`
+
+const StyledCardsLeftColumn = styled.div`
+  flex: 0 36.7521368%;
+  min-width: 36.7521368%;
   display: flex;
   flex-direction: column;
   gap: 20px;
@@ -95,14 +104,14 @@ function App() {
         </StyledHeadlineContainer>
         <StyledBodyContainer>
           <StyledCards>
-            <StyledCardsColumn>
+            <StyledCardsLeftColumn>
               <PresaleCard />
-            </StyledCardsColumn>
-            <StyledCardsColumn>
+            </StyledCardsLeftColumn>
+            <StyledCardsRightColumn>
               <MintCard />
               {account && <RewardCard />}
               <AirdropCard />
-            </StyledCardsColumn>
+            </StyledCardsRightColumn>
           </StyledCards>
           <StyledFaq />
         </StyledBodyContainer>
