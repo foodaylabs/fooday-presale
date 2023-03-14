@@ -7,6 +7,7 @@ const StyledContainer = styled.div`
   border-radius: 5px;
   width: 20px;
   height: 20px;
+  min-width: 20px;
   box-sizing: border-box;
 
   ${({ checked }) => checked && `

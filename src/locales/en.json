@@ -82,5 +82,55 @@
     "a6": "Participants of the pre-sale will have their $pFOOD tokens vested over a period of one year, with an initial release equivalent to roughly 50% of the total amount after 180 days, followed by a drip release of the remaining tokens over the next 185 days.",
     "q7": "What is the vesting term for the team tokens?",
     "a7": "The team tokens will be vested over a period of 2 years, with an initial release equivalent to roughly 50% of the total amount after 1 year, followed by a drip release of the remaining tokens over the next 365 days."
+  },
+  "mintCard": {
+    "title": "Purchase pFOOD now",
+    "guest": {
+      "message": "Please connect your wallet to continue the purchase",
+      "connectButton": "Connect Wallet"
+    },
+    "preview": {
+      "title": "You will claim",
+      "currentClaimed": "Your current claimed",
+      "newClaimed": "New claimed",
+      "newUpdatedBalance": "New updated balance"
+    },
+    "agreementNote": "Hereby I  agree to the token purchase agreement and token sale term.",
+    "purchaseButton": "Purchase"
+  },
+  "tokenAmountInput": {
+    "amount": "Purchase amount",
+    "maxButton": "Max",
+    "listTitle": "Select a token",
+    "balance": "Your current balance: {{balance}} {{token}}",
+    "maxAmountNote": "(Max purchased amount allowed: 50,000 pFOOD)"
+  },
+  "rewardCard": {
+    "title": "Your Level & Rewards",
+    "currStatusLabel": "Your current status",
+    "rewardsLabel": "Rewards",
+    "purchasedAmount": "You’ve purchased {{amount}} pFOOD",
+    "nextLevelNote": "Purchase more <b>{{amount}}</b> pFOOD during the presale to unlock Level {{level}} presale rewards."
+  },
+  "airdropCard": {
+    "title": "Free Fooca Camera Airdrops",
+    "subTitle": "Exclusive to pFOOD Presale Participants!",
+    "message": "Reach or exceed certain amounts of pFOOD tokens, and you'll be eligible for the corresponding number of Fooca Cameras. The more pFOOD tokens you purchase, the more Fooca Cameras you'll receive.",
+    "rewards": {
+      "title": "Level tiers & reward lists",
+      "level": "Level",
+      "minPurchased": "Minimum purchased",
+      "rewards": "Rewards",
+      "unlocked": "You have unlocked this level",
+      "genesisFoocaCamera": "Genesis Fooca Camera",
+      "note": "Please note that the free Fooca Cameras will be airdropped to eligible participants after the pFOOD presale ends. Stay tuned for more information on when the airdrop will take place."
+    }
+  },
+  "presaleCard": {
+    "ongoing": "Ongoing",
+    "title": "pFOOD Presale",
+    "message": "<p>By purchasing Food Coins now, you'll receive a promising price and be one of the first to join the Fooday community.</p><p>OtterClam members with CLAM can purchase pFOOD with 10% OFF during phase 1. This is a limited-time offer, so be fast!</p>",
+    "countdownTitle": "pFOOD Presale Countdown",
+    "presaleDuration": "Public Sale: {{start}} ~ {{end}}"
   }
 }

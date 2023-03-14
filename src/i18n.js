@@ -15,6 +15,9 @@ i18n
       en: {
         translation: require('./locales/en.json'),
       },
+      'zh-TW': {
+        translation: require('./locales/zh-TW.json'),
+      },
     },
     fallbackLng: 'en',
     debug: true,

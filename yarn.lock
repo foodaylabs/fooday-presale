@@ -1979,6 +1979,11 @@
     estree-walker "^1.0.1"
     picomatch "^2.2.2"
 
+"@rooks/use-outside-click@^4.11.2":
+  version "4.11.2"
+  resolved "https://registry.yarnpkg.com/@rooks/use-outside-click/-/use-outside-click-4.11.2.tgz#285e4054c4f489ee58ab6b770f6206122068f4e0"
+  integrity sha512-N2m9XO5L5/9NC+1BxdsoswRNyCu6AcrYN8b6gntvDf5ZtPsI3Z7IgzO5soc7My6ATifMmuw+VPabN+gibRBvKA==
+
 "@rushstack/eslint-patch@^1.1.0":
   version "1.2.0"
   resolved "https://registry.yarnpkg.com/@rushstack/eslint-patch/-/eslint-patch-1.2.0.tgz#8be36a1f66f3265389e90b5f9c9962146758f728"

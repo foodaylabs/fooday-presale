@@ -15,6 +15,11 @@ import { trim } from './utils/trim'
 import FoodcoinImageUrl from './assets/text-foodcoin.svg'
 import PresaleImageUrl from './assets/text-presale.svg'
 import EllipseImageUrl from './assets/ellipse.svg'
+import MintCard from './MintCard'
+import RewardCard from './RewardCard'
+import AirdropCard from './AirdropCard'
+import PresaleCard from './PresaleCard'
+import { useEthers } from '@usedapp/core'
 
 const StyledMain = styled.main`
   display: flex;
@@ -54,8 +59,7 @@ const StyledBodyContainer = styled.div`
   max-width: 1088px;
   width: 100%;
   margin: 60px auto 0;
-  background: 89.53px top / 110.3px 646.14px no-repeat url(${PresaleImageUrl}),
-    right 163.41px top / 51.85px 352.59px no-repeat url(${FoodcoinImageUrl});
+  background: right 163.41px top / 51.85px 352.59px no-repeat url(${FoodcoinImageUrl});
 
   &::before {
     content: '';
@@ -67,6 +71,25 @@ const StyledBodyContainer = styled.div`
     left: -264px;
     top: -306px;
   }
+`
+
+const StyledCards = styled.div`
+  display: flex;
+  gap: 130px;
+
+  @media (max-width: 768px) {
+    flex-direction: column;
+    gap: 20px;
+    margin: 15px;
+ }
+`
+
+const StyledCardsColumn = styled.div`
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  position: relative;
 `
 
 const StyledInfoSection = styled.section`
@@ -171,6 +194,7 @@ function App() {
     }
   }, [now, whitelistStageStartTime, publicStageStartTime])
   const progress = useMemo(() => totalSupply?.mul(100).div(cap).toString(), [totalSupply, cap])
+  const { account } = useEthers()
   return (
     <div>
       <Topbar />
@@ -184,61 +208,20 @@ function App() {
           </StyledHeadlineDesc>
         </StyledHeadlineContainer>
         <StyledBodyContainer>
-          <StyledBody>
-            <StyledInfoSection>
-              <StyledCountdownArea>
-                <StyledCountdownTitle>{t('countdown_title.' + phase)}</StyledCountdownTitle>
-                <StyledCountdown target={countdownTarget}></StyledCountdown>
-                <StyledSellDuration>
-                  <Typography variant="header3" as="p">
-                    {t('duration_clam', {
-                      start: whitelistStageStartTime.toLocaleString(),
-                      end: publicStageStartTime.toLocaleString(),
-                    })}
-                  </Typography>
-                  <Typography variant="header3" as="p">
-                    {t('duration_public', {
-                      start: publicStageStartTime.toLocaleString(),
-                      end: END_TIME.toLocaleString(),
-                    })}
-                  </Typography>
-                </StyledSellDuration>
-              </StyledCountdownArea>
-              <StyledCollectedArea>
-                <Typography variant="header2" as="h3">
-                  {t('total_collected')}
-                </Typography>
-                <StyledProgressBar>
-                  <StyledProgressBarProgress progress={progress}></StyledProgressBarProgress>
-                </StyledProgressBar>
-                <StyledTotalCollectedFood>{trim(formatEther(totalSupply), 0)} pFOOD</StyledTotalCollectedFood>
-                <StyledGoal>
-                  {t('goal', {
-                    percent: progress,
-                    goal: trim(formatEther(cap), 0),
-                  })}
-                </StyledGoal>
-              </StyledCollectedArea>
-            </StyledInfoSection>
-
-            {phase === 'in_clam' && (
-              <ClamPhase
-                whitelistStageStartTime={whitelistStageStartTime}
-                publicStageStartTime={publicStageStartTime}
-                capPerAccount={capPerAccount}
-                pFoodPerUsd={pFoodPerUsd}
-              />
-            )}
-
-            {phase === 'public' && (
-              <PublicPhase
-                whitelistStageStartTime={whitelistStageStartTime}
-                publicStageStartTime={publicStageStartTime}
-                capPerAccount={capPerAccount}
-                pFoodPerUsd={pFoodPerUsd}
-              />
-            )}
-          </StyledBody>
+          <StyledCards>
+            <StyledCardsColumn>
+              <PresaleCard />
+            </StyledCardsColumn>
+            <StyledCardsColumn>
+              <MintCard />
+              {account !== undefined && (
+                <>
+                  <RewardCard />
+                  <AirdropCard />
+                </>
+              )}
+            </StyledCardsColumn>
+          </StyledCards>
           <StyledFaq />
         </StyledBodyContainer>
       </StyledMain>

@@ -1,0 +1,136 @@
+{
+  "headline": "提前加入，開啟 Fooday 美食評論新世代",
+  "headline_desc": "機會來了！你現在有機會成為第一批投資 Fooday 餐廳評論平台的人！透過在預售期間購買 Food Coins，不僅能支持 Fooday 平台的發展，更能享有特權成為首批美食家，在平台上貢獻並獲得獎勵。",
+  "countdown_title": {
+    "pre_clam": "CLAM Holder Presale Coming In",
+    "in_clam": "CLAM 持有者預售倒數計時",
+    "public": "公開預售倒數計時"
+  },
+  "day": "Days",
+  "hour": "Hours",
+  "minute": "Mins",
+  "second": "Secs",
+  "duration_clam": "CLAM 持有者預售: {{start}} ~ {{end}}",
+  "duration_public": "公開預售: {{start}} ~ {{end}}",
+  "total_collected": "已累積",
+  "goal": "{{percent}}% of {{goal}} 目標",
+  "phase": "階段 {{phase}}",
+  "phase_not_started": "尚未開始",
+  "phase_ongoing": "進行中",
+  "phase_ended": "已結束",
+  "phase_duration": "進行期間: {{start}} ~ {{end}}",
+  "clam_holder_phase": {
+    "title": "CLAM 持有者預售",
+    "desc": "OtterClam 成員若持有 $CLAM，在第一階段預售期間內使用 $CLAM 購買 pFOOD 可以享有 10% 折扣。注意，這是限時優惠，記得別錯過！"
+  },
+  "public_phase": {
+    "title": "公開預售",
+    "desc": "現在預購 Food Coins，不僅將享有優惠價格，更能提前加入 Fooday 社群。"
+  },
+  "dialog": {
+    "purchase_amount": "購買數量",
+    "max": "最大",
+    "balance": "目前錢包數量: ",
+    "max_allowed": "(最大可購買數量: {{max}} pFOOD)",
+    "claim": "你將獲得",
+    "term": "我在此同意代幣購買協議和代幣銷售條款。",
+    "purchase_btn": "購買",
+    "processing": "交易進行中",
+    "please_agree_btn": "請確認你已同意銷售條款",
+    "switch_network_btn": "跳轉至 Polygon"
+  },
+  "success": {
+    "title": "美味至極，感謝招待！",
+    "desc": "透過購買 Food Coins，你已協助了改善未來的餐廳評論生態！",
+    "hint": "確保你能獲得最新的 Fooday 消息和更新，請務必關注我們的社群平台。讓我們一起創造革命性的美食風暴！"
+  },
+  "topbar": {
+    "links": {
+      "docs": "文件",
+      "waitlist": "加入等待名單"
+    }
+  },
+  "footer": {
+    "about": {
+      "title": "關於我們",
+      "content": "我們為美食家提供分享的動力，將打造一個可靠、公正且精確的美食資訊來源，讓全世界的美食愛好者們能盡情享用美食，再也不擔心踩雷。"
+    },
+    "media": {
+      "title": "社群平台"
+    },
+    "support": {
+      "title": "支援",
+      "docs": "文件",
+      "email": "聯絡我們的電子信箱"
+    }
+  },
+  "connect_desc": "請連接你的錢包以繼續購買:",
+  "connect_btn": "連接錢包",
+  "faq": {
+    "title": "FAQ",
+    "q1": "Fooday 是什麼?",
+    "a1": "Fooday 是一個全新的餐廳評論平台，專為美食愛好者所設計，提供可信賴、精確的美食資訊。此平台旨在激勵美食愛好者留下正確、公正且有用的評論，同時促進社群中的正向行為。",
+    "q2": "Food Coin 是什麼?",
+    "a2": " Food Coin 是 Fooday 平台的經濟代幣。Food Coin 可以在平台內使用，也能在加密貨幣交易所進行交易，未來還會有更多的應用。",
+    "q3": "Food Coin 預售是什麼？",
+    "a3": "Food Coin 預售活動提供搶先購買 Food Coin 的機會，你可以在限時優惠期間，用折扣價格購入 Food Coin，並成為 Fooday 平台上作為美食家，賺取獎勵的首批貢獻者之一。",
+    "q4": "在預售期間，我可以購買的 Food Coin 數量有限制嗎？",
+    "a4": "是的，在預售期間購買 Food Coins 的數量是有限制的。請查看預售頁面以了解更多關於 Food Coins 的資訊。",
+    "q5": "Food Coin 代幣的創世總供應量是多少?",
+    "a5": "Food Coin 的總供應量為 10,000,000枚。其中 25％ 分配給社群銷售，25％ 分配給團隊，50％ 分配給 Fooday 基金。",
+    "q6": "預售 Food Coin 的解鎖期是多久？",
+    "a6": "若你為參加預售的參與者，$pFOOD 代幣將分期發放，為期一年。首次發放將在 180 天後，並發放總數的 50%，，其餘的代幣會在接下來的 185 天內持續發放。",
+    "q7": "團隊的代幣解凍期為多久?",
+    "a7": "團隊代幣將在兩年內分期發放，第一年將釋放大約總數 50％ 的代幣，之後將在接下來的 365 天內分期釋放剩餘的代幣。"
+  },
+  "mintCard": {
+    "title": "立刻購買 pFOOD",
+    "guest": {
+      "message": "請連接你的錢包以繼續購買",
+      "connectButton": "連接錢包"
+    },
+    "preview": {
+      "title": "你將獲得",
+      "currentClaimed": "你已獲得",
+      "newClaimed": "新獲得",
+      "newUpdatedBalance": "最新數量更新"
+    },
+    "agreementNote": "我在此同意購買代幣的購買協議和代幣銷售條款。",
+    "purchaseButton": "購買"
+  },
+  "tokenAmountInput": {
+    "amount": "購買數量",
+    "maxButton": "最大",
+    "listTitle": "選擇代幣",
+    "balance": "目前錢包數量: {{balance}} {{token}}",
+    "maxAmountNote": "(最大可購買數量: 50,000 pFOOD)"
+  },
+  "rewardCard": {
+    "title": "等級及獎勵",
+    "currStatusLabel": "目前等級狀態",
+    "rewardsLabel": "獎勵",
+    "purchasedAmount": "你已購買 {{amount}} pFOOD",
+    "nextLevelNote": "在預售期間內購買更多 <b>{{amount}}</b> pFOOD， 以解鎖等級 {{level}} 預售獎勵."
+  },
+  "airdropCard": {
+    "title": "免費 Fooca 相機空投",
+    "subTitle": "pFOOD 預售參與者限定優惠！",
+    "message": "只要你購買一定數量的 pFOOD 代幣，就能獲得對應數量的 Fooca 相機。當你購買的 pFOOD 代幣數量越多，能獲得的 Fooca 相機數量也就越多。",
+    "rewards": {
+      "title": "等級 & 獎勵清單",
+      "level": "等級",
+      "minPurchased": "最低購買數量",
+      "rewards": "獎勵",
+      "unlocked": "你已解鎖此等級",
+      "genesisFoocaCamera": "創世 Fooca 相機",
+      "note": "請注意，免費的 Fooca 相機將在 pFOOD 預售結束後空投給符合資格的參與者。請密切留意更多有關空投的消息。"
+    }
+  },
+  "presaleCard": {
+    "ongoing": "進行中",
+    "title": "pFOOD 預售",
+    "message": "<p>現在購買Food Coins，你將享有優惠價格，並成為加入 Fooday 社群的第一批用戶。</p><p>OtterClam 成員若持有 $CLAM，在第一階段預售期間內使用 $CLAM 購買 pFOOD 可以享有 10% 折扣。注意，這是限時優惠，記得別錯過！</p>",
+    "countdownTitle": "pFOOD 預售倒數計時",
+    "presaleDuration": "公開預售: {{start}} ~ {{end}}"
+  }
+}
