@@ -1,20 +1,20 @@
-import React, { useEffect, useMemo, useState } from 'react'
-import { trim } from './utils/trim'
-import Card from './Card'
-import styled from 'styled-components/macro'
-import { Typography } from './Typography'
-import { useTranslation } from 'react-i18next'
 import { useEthers, useTokenBalance } from '@usedapp/core'
-import TokenAmountInput from './TokenAmountInput'
-import { BigNumber, constants } from 'ethers'
-import daiIcon from './assets/dai.png'
-import clamIcon from './assets/clam.png'
-import foodIcon from './assets/food.png'
-import { useAddresses, useMintWithClam, useMint, usePFoodFromClam, usePFoodFromToken } from './contracts'
+import { constants } from 'ethers'
 import { formatEther } from 'ethers/lib/utils'
-import { pfoodToLevel } from './utils/levels'
+import React, { useEffect, useMemo, useState } from 'react'
+import { useTranslation } from 'react-i18next'
+import styled from 'styled-components/macro'
+import clamIcon from './assets/clam.png'
+import daiIcon from './assets/dai.png'
+import foodIcon from './assets/food.png'
+import Card from './Card'
 import Checkbox from './Checkbox'
+import { useAddresses, useMint, useMintWithClam, usePFoodFromToken } from './contracts'
 import SuccessDialog from './SuccessDialog'
+import TokenAmountInput from './TokenAmountInput'
+import { Typography } from './Typography'
+import { pfoodToLevel } from './utils/levels'
+import { trim } from './utils/trim'
 
 const tokenIcons = {
   CLAM: clamIcon,
@@ -128,7 +128,7 @@ const StyledGuestMessage = styled(Typography).attrs({ variant: 'caption', color:
 `
 
 export default function MintCard() {
-  const [token, setToken] = useState('DAI')
+  const [token, setToken] = useState('CLAM')
   const [amount, setAmount] = useState(constants.Zero)
   const [agree, setAgree] = useState(false)
   const { t } = useTranslation()
