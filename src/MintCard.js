@@ -6,11 +6,11 @@ import { Typography } from './Typography'
 import { useTranslation } from 'react-i18next'
 import { useEthers, useTokenBalance } from '@usedapp/core'
 import TokenAmountInput from './TokenAmountInput'
-import { BigNumber } from 'ethers'
+import { BigNumber, constants } from 'ethers'
 import daiIcon from './assets/dai.png'
 import clamIcon from './assets/clam.png'
 import foodIcon from './assets/food.png'
-import { useAddresses, useMintWithClam, useMint } from './contracts'
+import { useAddresses, useMintWithClam, useMint, usePFoodFromClam, usePFoodFromToken } from './contracts'
 import { formatEther } from 'ethers/lib/utils'
 import { pfoodToLevel } from './utils/levels'
 import Checkbox from './Checkbox'
@@ -129,22 +129,16 @@ const StyledGuestMessage = styled(Typography).attrs({ variant: 'caption', color:
 
 export default function MintCard() {
   const [token, setToken] = useState('DAI')
-  const [amount, setAmount] = useState(BigNumber.from(0))
+  const [amount, setAmount] = useState(constants.Zero)
   const [agree, setAgree] = useState(false)
   const { t } = useTranslation()
   const { account, activateBrowserWallet } = useEthers()
   const addresses = useAddresses()
-  const pfoodBalance = useTokenBalance(addresses?.PFOOD, account) ?? BigNumber.from(0)
-  const newClaimed = useMemo(() => {
-    if (token === 'CLAM') {
-      return amount.mul(295).div(100).mul(10).div(9).mul(10)
-    }
-    return amount.mul(10)
-  }, [token, amount])
-  console.log('new claimed', formatEther(newClaimed), 'pfood')
+  const pfoodBalance = useTokenBalance(addresses?.PFOOD, account) ?? constants.Zero
+  const { pFoodAmount } = usePFoodFromToken(token, amount)
   const newUpdatedBalance = useMemo(() => {
-    return pfoodBalance.add(newClaimed)
-  }, [newClaimed, pfoodBalance])
+    return pfoodBalance.add(pFoodAmount)
+  }, [pFoodAmount, pfoodBalance])
   const currentLevel = useMemo(() => pfoodToLevel(Number(formatEther(pfoodBalance))), [pfoodBalance])
   const newLevel = useMemo(() => pfoodToLevel(Number(formatEther(newUpdatedBalance))), [newUpdatedBalance])
   const mintWithDai = useMint()
@@ -187,7 +181,7 @@ export default function MintCard() {
                   <StyledIcon src={foodIcon} />
                   <Typography variant="header2">pFOOD</Typography>
                 </StyledPreviewToken>
-                <Typography variant="header2">{formatEther(newClaimed)}</Typography>
+                <Typography variant="header2">{formatEther(pFoodAmount)}</Typography>
               </StyledPreviewAmount>
               <StyledPreviewNote>
                 {token === 'DAI' && (
@@ -213,7 +207,7 @@ export default function MintCard() {
               </StyledPreviewBalance>
               <StyledPreviewBalance>
                 <span>{t('mintCard.preview.newClaimed')}</span>
-                <TokenAmount token="pFOOD" amount={trim(formatEther(newClaimed))} />
+                <TokenAmount token="pFOOD" amount={trim(formatEther(pFoodAmount))} />
               </StyledPreviewBalance>
               <StyledPreviewBalance>
                 <span>{t('mintCard.preview.newUpdatedBalance')}</span>
@@ -236,7 +230,7 @@ export default function MintCard() {
         )}
       </StyledContent>
       {mintState.status === 'Success' && (
-        <SuccessDialog pFoodAmount={trim(formatEther(newClaimed), 4)} onClose={() => resetState()} />
+        <SuccessDialog pFoodAmount={trim(formatEther(pFoodAmount), 4)} onClose={() => resetState()} />
       )}
     </StyledCard>
   )
