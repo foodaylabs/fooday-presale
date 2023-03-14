@@ -100,12 +100,8 @@ function App() {
             </StyledCardsColumn>
             <StyledCardsColumn>
               <MintCard />
-              {account !== undefined && (
-                <>
-                  <RewardCard />
-                  <AirdropCard />
-                </>
-              )}
+              {account && <RewardCard />}
+              <AirdropCard />
             </StyledCardsColumn>
           </StyledCards>
           <StyledFaq />
