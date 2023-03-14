@@ -73,7 +73,7 @@ export const usePFoodInfo = () => {
   }
 }
 
-export const usePFoodFromClam = (clamAmount) => {
+export const usePFoodFromToken = (token, amount) => {
   const addresses = useAddresses()
   const contract = usePFood()
   const mine = addresses && new Contract(addresses.MINE, OtterMine)
@@ -82,30 +82,16 @@ export const usePFoodFromClam = (clamAmount) => {
       contract: mine,
       method: 'usdPerClam',
     },
-    contract && {
-      contract,
-      method: 'calcReceivedAmount',
-      args: [addresses.CLAM, clamAmount],
-    },
+    contract &&
+      amount && {
+        contract,
+        method: 'calcReceivedAmount',
+        args: [token === 'DAI' ? addresses.DAI : addresses.CLAM, amount],
+      },
   ])
   return {
-    usdPerClam: results?.[0]?.value?.[0],
-    pFoodAmount: results?.[1]?.value?.[0],
-  }
-}
-
-export const usePFoodFromDai = (daiAmount) => {
-  const addresses = useAddresses()
-  const contract = usePFood()
-  const results = useCalls([
-    contract && {
-      contract,
-      method: 'calcReceivedAmount',
-      args: [addresses.DAI, daiAmount],
-    },
-  ])
-  return {
-    pFoodAmount: results?.[0]?.value?.[0]?.div(BigNumber.from(10).pow(6)),
+    usdPerClam: results?.[0]?.value?.[0] || constants.Zero,
+    pFoodAmount: results?.[1]?.value?.[0] || constants.Zero,
   }
 }
 
