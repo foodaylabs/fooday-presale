@@ -128,7 +128,7 @@ const StyledGuestMessage = styled(Typography).attrs({ variant: 'caption', color:
 `
 
 export default function MintCard() {
-  const [token, setToken] = useState('CLAM')
+  const [token, setToken] = useState('DAI')
   const [amount, setAmount] = useState(constants.Zero)
   const [agree, setAgree] = useState(false)
   const { t } = useTranslation()
