@@ -180,7 +180,7 @@ export default function TokenAmountInput({
             <Typography variant="header2">{t('tokenAmountInput.listTitle')}</Typography>
           </StyledDropdownTitle>
           <StyledDropdownOptions>
-            {/* <DropdownOption token="DAI" onSelect={handleTokenChange} /> */}
+            <DropdownOption token="DAI" onSelect={handleTokenChange} />
             <DropdownOption token="CLAM" discountRate={0.1} onSelect={handleTokenChange} />
           </StyledDropdownOptions>
         </StyledDropdownContent>
