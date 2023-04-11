@@ -13,7 +13,7 @@
   "duration_clam": "CLAM Holder Sale: {{start}} ~ {{end}}",
   "duration_public": "Public Sale: {{start}} ~ {{end}}",
   "total_collected": "Total Collected",
-  "goal": "{{percent}}% of {{goal}} Goal",
+  "goal": "{{percent}}% of {{goal}} Cap",
   "phase": "Phase {{phase}}",
   "phase_not_started": "Not Started Yet",
   "phase_ongoing": "Ongoing",

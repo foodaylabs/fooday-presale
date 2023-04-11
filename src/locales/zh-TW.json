@@ -13,7 +13,7 @@
   "duration_clam": "CLAM 持有者預售: {{start}} ~ {{end}}",
   "duration_public": "公開預售: {{start}} ~ {{end}}",
   "total_collected": "已累積",
-  "goal": "{{percent}}% of {{goal}} 目標",
+  "goal": "{{percent}}% of {{goal}} 限額",
   "phase": "階段 {{phase}}",
   "phase_not_started": "尚未開始",
   "phase_ongoing": "進行中",
