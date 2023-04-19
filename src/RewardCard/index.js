@@ -13,6 +13,10 @@ import cameraImage from './camera.webp'
 import lockedIcon from './locked.svg'
 import unlockedIcon from './unlocked.svg'
 
+const StyledCard = styled(Card)`
+  background: #fff;
+`
+
 const StyledTitle = styled(Typography).attrs({ variant: 'header1' })`
   display: flex;
   height: 54px;
@@ -102,9 +106,27 @@ const StyledProgressLevel = styled.div`
   }
 `
 
+const StyledConnectContainer = styled.div`
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  gap: 30px;
+`
+
+const StyledSubmitButton = styled.button`
+  background: #000000;
+  border-radius: 5px;
+  color: white;
+  padding: 15px;
+
+  :disabled {
+    background: #a1a7ba;
+  }
+`
+
 export default function RewardCard() {
   const { t } = useTranslation()
-  const { account } = useEthers()
+  const { account, activateBrowserWallet } = useEthers()
   const addresses = useAddresses()
   const balance = useTokenBalance(addresses?.PFOOD, account) ?? constants.Zero
   const balanceNumber = Number(formatEther(balance))
@@ -117,54 +139,56 @@ export default function RewardCard() {
     Number(formatEther(nextLevelRequiredAmount.sub(currLevelRequiredAmount)))
 
   return (
-    <Card head={<StyledTitle>{t('rewardCard.title')}</StyledTitle>}>
-      <StyledContent>
-        <StyledLevelStatus>
-          <StyledLevelStatusContent>
-            <Typography variant="caption">{t('rewardCard.currStatusLabel')}</Typography>
-            <Typography variant="title3">Level {level}</Typography>
-          </StyledLevelStatusContent>
-          <StyledCameraImage src={cameraImage} />
-        </StyledLevelStatus>
+    <StyledCard head={<StyledTitle>{t('rewardCard.title')}</StyledTitle>}>
+      {account && (
+        <StyledContent>
+          <StyledLevelStatus>
+            <StyledLevelStatusContent>
+              <Typography variant="caption">{t('rewardCard.currStatusLabel')}</Typography>
+              <Typography variant="title3">Level {level}</Typography>
+            </StyledLevelStatusContent>
+            <StyledCameraImage src={cameraImage} />
+          </StyledLevelStatus>
 
-        {level < 6 && (
-          <>
-            <StyledProgress>
-              <Typography variant="header3">
-                {t('rewardCard.purchasedAmount', { amount: trim(formatEther(balance)) })}
-              </Typography>
-              <StyledProgressBar progress={progress}>
-                <StyledLockerIcon src={unlockedIcon} />
-                <StyledLockerIcon src={lockedIcon} />
-              </StyledProgressBar>
-              <StyledProgressLevels>
-                <StyledProgressLevel>
-                  <Typography variant="header2">Level {level}</Typography>
-                  <Typography variant="caption" color="#545864">
-                    {trim(formatEther(currLevelRequiredAmount))} pFOOD
-                  </Typography>
-                </StyledProgressLevel>
-                <StyledProgressLevel>
-                  <Typography variant="header2">Level {level + 1}</Typography>
-                  <Typography variant="caption" color="#545864">
-                    {trim(formatEther(nextLevelRequiredAmount))} pFOOD
-                  </Typography>
-                </StyledProgressLevel>
-              </StyledProgressLevels>
-            </StyledProgress>
-
-            <Typography
-              variant="caption"
-              dangerouslySetInnerHTML={{
-                __html: t('rewardCard.nextLevelNote', {
-                  amount: trim(formatEther(amountToNextLevel), 2),
-                  level: level + 1,
-                }),
-              }}
-            />
-          </>
-        )}
-      </StyledContent>
-    </Card>
+          {level < 6 && (
+            <>
+              <StyledProgress>
+                <Typography variant="header3">
+                  {t('rewardCard.purchasedAmount', { amount: trim(formatEther(balance)) })}
+                </Typography>
+                <StyledProgressBar progress={progress}>
+                  <StyledLockerIcon src={unlockedIcon} />
+                  <StyledLockerIcon src={lockedIcon} />
+                </StyledProgressBar>
+                <StyledProgressLevels>
+                  <StyledProgressLevel>
+                    <Typography variant="header2">Level {level}</Typography>
+                    <Typography variant="caption" color="#545864">
+                      {trim(formatEther(currLevelRequiredAmount))} pFOOD
+                    </Typography>
+                  </StyledProgressLevel>
+                  <StyledProgressLevel>
+                    <Typography variant="header2">Level {level + 1}</Typography>
+                    <Typography variant="caption" color="#545864">
+                      {trim(formatEther(nextLevelRequiredAmount))} pFOOD
+                    </Typography>
+                  </StyledProgressLevel>
+                </StyledProgressLevels>
+              </StyledProgress>
+            </>
+          )}
+        </StyledContent>
+      )}
+      {!account && (
+        <StyledContent>
+          <StyledConnectContainer>
+            <Typography variant="header3" color="#545864">
+              {t('connect_desc')}
+            </Typography>
+            <StyledSubmitButton onClick={() => activateBrowserWallet()}>{t('connect_btn')}</StyledSubmitButton>
+          </StyledConnectContainer>
+        </StyledContent>
+      )}
+    </StyledCard>
   )
 }

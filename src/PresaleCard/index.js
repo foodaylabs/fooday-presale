@@ -159,7 +159,6 @@ export default function PresaleCard() {
                 </StyledInfo>
                 <StyledCountdownArea>
                     <StyledCountdownTitle>{t('presaleCard.countdownTitle')}</StyledCountdownTitle>
-                    <StyledCountdown target={END_TIME} />
                     <StyledSellDuration>
                     <Typography variant="header3" as="p">
                         {t('presaleCard.presaleDuration', {
@@ -173,16 +172,7 @@ export default function PresaleCard() {
                     <Typography variant="header2" as="h3">
                       {t('total_collected')}
                     </Typography>
-                    <StyledProgressBar>
-                      <StyledProgressBarProgress progress={progress}></StyledProgressBarProgress>
-                    </StyledProgressBar>
                     <StyledTotalCollectedFood>{trim(formatEther(totalSupply), 0)} pFOOD</StyledTotalCollectedFood>
-                    <StyledGoal>
-                      {t('goal', {
-                        percent: progress,
-                        goal: trim(formatEther(cap), 0),
-                      })}
-                    </StyledGoal>
                   </StyledCollectedArea>
                 </StyledHead>
         )} />

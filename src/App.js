@@ -6,7 +6,6 @@ import EllipseImageUrl from './assets/ellipse.svg'
 import FoodcoinImageUrl from './assets/text-foodcoin.svg'
 import Faq from './Faq'
 import Footer from './Footer'
-import MintCard from './MintCard'
 import PresaleCard from './PresaleCard'
 import RewardCard from './RewardCard'
 import Topbar from './Topbar'
@@ -108,8 +107,7 @@ function App() {
               <PresaleCard />
             </StyledCardsLeftColumn>
             <StyledCardsRightColumn>
-              <MintCard />
-              {account && <RewardCard />}
+              <RewardCard />
               <AirdropCard />
             </StyledCardsRightColumn>
           </StyledCards>
