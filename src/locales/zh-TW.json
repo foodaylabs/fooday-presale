@@ -130,7 +130,7 @@
     "ongoing": "進行中",
     "title": "pFOOD 預售",
     "message": "<p>現在購買Food Coins，你將享有優惠價格，並成為加入 Fooday 社群的第一批用戶。</p><p>OtterClam 成員若持有 $CLAM，在第一階段預售期間內使用 $CLAM 購買 pFOOD 可以享有 10% 折扣。注意，這是限時優惠，記得別錯過！</p>",
-    "countdownTitle": "pFOOD 預售倒數計時",
+    "countdownTitle": "pFOOD 預售已結束",
     "presaleDuration": "公開預售: {{start}} ~ {{end}}"
   }
 }

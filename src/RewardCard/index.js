@@ -13,6 +13,10 @@ import cameraImage from './camera.webp'
 import lockedIcon from './locked.svg'
 import unlockedIcon from './unlocked.svg'
 
+const StyledCard = styled(Card)`
+  background: #fff;
+`
+
 const StyledTitle = styled(Typography).attrs({ variant: 'header1' })`
   display: flex;
   height: 54px;
@@ -117,7 +121,7 @@ export default function RewardCard() {
     Number(formatEther(nextLevelRequiredAmount.sub(currLevelRequiredAmount)))
 
   return (
-    <Card head={<StyledTitle>{t('rewardCard.title')}</StyledTitle>}>
+    <StyledCard head={<StyledTitle>{t('rewardCard.title')}</StyledTitle>}>
       <StyledContent>
         <StyledLevelStatus>
           <StyledLevelStatusContent>
@@ -152,19 +156,9 @@ export default function RewardCard() {
                 </StyledProgressLevel>
               </StyledProgressLevels>
             </StyledProgress>
-
-            <Typography
-              variant="caption"
-              dangerouslySetInnerHTML={{
-                __html: t('rewardCard.nextLevelNote', {
-                  amount: trim(formatEther(amountToNextLevel), 2),
-                  level: level + 1,
-                }),
-              }}
-            />
           </>
         )}
       </StyledContent>
-    </Card>
+    </StyledCard>
   )
 }

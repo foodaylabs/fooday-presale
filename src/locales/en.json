@@ -130,7 +130,7 @@
     "ongoing": "Ongoing",
     "title": "pFOOD Presale",
     "message": "<p>By purchasing Food Coins now, you'll receive a promising price and be one of the first to join the Fooday community.</p><p>OtterClam members with CLAM can purchase pFOOD with 10% OFF during phase 1. This is a limited-time offer, so be fast!</p>",
-    "countdownTitle": "pFOOD Presale Countdown",
+    "countdownTitle": "pFOOD Presale Has Ended",
     "presaleDuration": "Public Sale: {{start}} ~ {{end}}"
   }
 }
