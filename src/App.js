@@ -107,7 +107,7 @@ function App() {
               <PresaleCard />
             </StyledCardsLeftColumn>
             <StyledCardsRightColumn>
-              {account && <RewardCard />}
+              <RewardCard />
               <AirdropCard />
             </StyledCardsRightColumn>
           </StyledCards>
