@@ -1,10 +1,7 @@
-"use strict";
-Object.defineProperty(exports, "__esModule", { value: true });
-exports.CancelablePromise = exports.CancelError = void 0;
 /* istanbul ignore file */
 /* tslint:disable */
 /* eslint-disable */
-class CancelError extends Error {
+export class CancelError extends Error {
     constructor(message) {
         super(message);
         this.name = 'CancelError';
@@ -13,8 +10,7 @@ class CancelError extends Error {
         return true;
     }
 }
-exports.CancelError = CancelError;
-class CancelablePromise {
+export class CancelablePromise {
     constructor(executor) {
         this._isResolved = false;
         this._isRejected = false;
@@ -90,5 +86,4 @@ class CancelablePromise {
         return this._isCancelled;
     }
 }
-exports.CancelablePromise = CancelablePromise;
 Symbol.toStringTag;

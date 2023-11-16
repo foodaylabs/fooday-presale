@@ -1,7 +1,4 @@
-"use strict";
-Object.defineProperty(exports, "__esModule", { value: true });
-exports.AdminService = void 0;
-class AdminService {
+export class AdminService {
     constructor(httpRequest) {
         this.httpRequest = httpRequest;
     }
@@ -57,4 +54,3 @@ class AdminService {
         });
     }
 }
-exports.AdminService = AdminService;

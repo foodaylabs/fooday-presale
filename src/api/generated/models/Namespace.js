@@ -1,10 +1,7 @@
-"use strict";
 /* istanbul ignore file */
 /* tslint:disable */
 /* eslint-disable */
-Object.defineProperty(exports, "__esModule", { value: true });
-exports.Namespace = void 0;
-var Namespace;
+export var Namespace;
 (function (Namespace) {
     Namespace["SPOT_CATEGORIES"] = "spot_categories";
     Namespace["NOTIFICATION_PUSH"] = "notification_push";
@@ -31,4 +28,4 @@ var Namespace;
     Namespace["MISSION_TYPES"] = "mission_types";
     Namespace["MISSION_REWARDS"] = "mission_rewards";
     Namespace["ITEM_TYPES"] = "item_types";
-})(Namespace = exports.Namespace || (exports.Namespace = {}));
+})(Namespace || (Namespace = {}));

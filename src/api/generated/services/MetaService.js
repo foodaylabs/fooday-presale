@@ -1,7 +1,4 @@
-"use strict";
-Object.defineProperty(exports, "__esModule", { value: true });
-exports.MetaService = void 0;
-class MetaService {
+export class MetaService {
     constructor(httpRequest) {
         this.httpRequest = httpRequest;
     }
@@ -54,4 +51,3 @@ class MetaService {
         });
     }
 }
-exports.MetaService = MetaService;

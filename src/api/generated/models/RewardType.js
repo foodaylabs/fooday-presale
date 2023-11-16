@@ -1,10 +1,7 @@
-"use strict";
 /* istanbul ignore file */
 /* tslint:disable */
 /* eslint-disable */
-Object.defineProperty(exports, "__esModule", { value: true });
-exports.RewardType = void 0;
-var RewardType;
+export var RewardType;
 (function (RewardType) {
     RewardType["SPOT_DETAILS"] = "spotDetails";
     RewardType["SPOT_PHONE_NUMBER"] = "spotPhoneNumber";
@@ -31,4 +28,4 @@ var RewardType;
     RewardType["REPORT_REVIEW"] = "reportReview";
     RewardType["VOTE"] = "vote";
     RewardType["MEDIA_CAPTION"] = "mediaCaption";
-})(RewardType = exports.RewardType || (exports.RewardType = {}));
+})(RewardType || (RewardType = {}));

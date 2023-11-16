@@ -1,7 +1,4 @@
-"use strict";
-Object.defineProperty(exports, "__esModule", { value: true });
-exports.ChallengeService = void 0;
-class ChallengeService {
+export class ChallengeService {
     constructor(httpRequest) {
         this.httpRequest = httpRequest;
     }
@@ -103,4 +100,3 @@ class ChallengeService {
         });
     }
 }
-exports.ChallengeService = ChallengeService;

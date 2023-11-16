@@ -1,7 +1,4 @@
-"use strict";
-Object.defineProperty(exports, "__esModule", { value: true });
-exports.FoocaService = void 0;
-class FoocaService {
+export class FoocaService {
     constructor(httpRequest) {
         this.httpRequest = httpRequest;
     }
@@ -157,4 +154,3 @@ class FoocaService {
         });
     }
 }
-exports.FoocaService = FoocaService;

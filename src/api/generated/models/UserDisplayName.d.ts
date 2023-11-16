@@ -1,1 +1,0 @@
-export type UserDisplayName = string;

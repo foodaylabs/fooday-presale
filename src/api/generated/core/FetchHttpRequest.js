@@ -1,9 +1,6 @@
-"use strict";
-Object.defineProperty(exports, "__esModule", { value: true });
-exports.FetchHttpRequest = void 0;
-const BaseHttpRequest_1 = require("./BaseHttpRequest");
-const request_1 = require("./request");
-class FetchHttpRequest extends BaseHttpRequest_1.BaseHttpRequest {
+import { BaseHttpRequest } from './BaseHttpRequest';
+import { request as __request } from './request';
+export class FetchHttpRequest extends BaseHttpRequest {
     constructor(config) {
         super(config);
     }
@@ -14,7 +11,6 @@ class FetchHttpRequest extends BaseHttpRequest_1.BaseHttpRequest {
      * @throws ApiError
      */
     request(options) {
-        return (0, request_1.request)(this.config, options);
+        return __request(this.config, options);
     }
 }
-exports.FetchHttpRequest = FetchHttpRequest;

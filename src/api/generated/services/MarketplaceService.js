@@ -1,7 +1,4 @@
-"use strict";
-Object.defineProperty(exports, "__esModule", { value: true });
-exports.MarketplaceService = void 0;
-class MarketplaceService {
+export class MarketplaceService {
     constructor(httpRequest) {
         this.httpRequest = httpRequest;
     }
@@ -108,4 +105,3 @@ class MarketplaceService {
         });
     }
 }
-exports.MarketplaceService = MarketplaceService;
