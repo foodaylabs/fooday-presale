@@ -178,14 +178,7 @@ export default function AirdropCard() {
     const currentLevel = pfoodToLevel(Number(formatEther(balance)))
 
     return (
-        <StyledCard head={(
-            <StyledHeader>
-                <Typography style={{ marginBottom: '10px' }} variant="title1">{t('airdropCard.title')}</Typography>
-                <Typography style={{ marginBottom: '20px' }} variant="header1">{t('airdropCard.subTitle')}</Typography>
-                <Typography style={{ marginBottom: '20px' }} variant="body">{t('airdropCard.message')}</Typography>
-                <StyledImage src={image} />
-            </StyledHeader>
-        )}>
+        <StyledCard>
             <StyledRewardsTitle>{t('airdropCard.rewards.title')}</StyledRewardsTitle>
             <StyledListHead>
                 <StyledLevelCol>{t('airdropCard.rewards.level')}</StyledLevelCol>

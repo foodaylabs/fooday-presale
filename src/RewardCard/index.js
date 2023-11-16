@@ -1,17 +1,22 @@
 import { useEthers, useTokenBalance } from '@usedapp/core'
 import { BigNumber, constants } from 'ethers'
 import { formatEther, parseEther } from 'ethers/lib/utils'
-import React from 'react'
+import React, { useCallback, useEffect, useState } from 'react'
 import { useTranslation } from 'react-i18next'
-import styled from 'styled-components/macro'
+import styled, { keyframes } from 'styled-components/macro'
 import Card from '../Card'
 import { useAddresses } from '../contracts'
 import { Typography } from '../Typography'
 import { amountOfLevel, calcAmountToNextLevel, pfoodToLevel } from '../utils/levels'
-import { trim } from '../utils/trim'
-import cameraImage from './camera.webp'
-import lockedIcon from './locked.svg'
-import unlockedIcon from './unlocked.svg'
+import googleIcon from './google.png'
+import facebookIcon from './facebook.png'
+import appleIcon from './apple.png'
+import { useFirebaseSignIn, useFirebaseSignOut, useFirebaseUser } from '../firebase'
+import boxImage from './box.png'
+import { useFoodayUser } from '../fooday'
+import { FirebaseError } from 'firebase/app'
+import { useApi } from '../ApiProvider'
+import copy from 'copy-to-clipboard'
 
 const StyledCard = styled(Card)`
   background: #fff;
@@ -42,68 +47,6 @@ const StyledLevelStatusContent = styled.div`
   display: flex;
   flex-direction: column;
   gap: 5px;
-  border-right: 1px #e9ebf3 solid;
-`
-
-const StyledCameraImage = styled.img`
-  width: 44px;
-  height: 44px;
-`
-
-const StyledProgress = styled.div`
-  display: flex;
-  flex-direction: column;
-  align-items: scratch;
-  text-align: center;
-  gap: 5px;
-`
-
-const StyledProgressBar = styled.div`
-  position: relative;
-  display: flex;
-  justify-content: space-between;
-
-  &::before {
-    content: '';
-    display: block;
-    position: absolute;
-    top: calc(50% - 4px);
-    left: 36px;
-    right: 36px;
-    height: 8px;
-    background: #e9ebf3;
-  }
-
-  &::after {
-    content: '';
-    display: block;
-    position: absolute;
-    top: calc(50% - 4px);
-    left: 36px;
-    height: 8px;
-    width: calc((100% - 36px * 2) * ${({ progress }) => progress});
-    background: #ffb82e;
-  }
-`
-
-const StyledLockerIcon = styled.img`
-  width: 36px;
-  height: 36px;
-`
-
-const StyledProgressLevels = styled.div`
-  display: flex;
-  justify-content: space-between;
-`
-
-const StyledProgressLevel = styled.div`
-  display: flex;
-  flex-direction: column;
-  align-items: flex-start;
-
-  &:last-child {
-    align-items: flex-end;
-  }
 `
 
 const StyledConnectContainer = styled.div`
@@ -124,9 +67,164 @@ const StyledSubmitButton = styled.button`
   }
 `
 
+const StyledLoginBox = styled.div`
+  display: flex;
+  flex-direction: column;
+  item-align: center;
+  background: #fff4de;
+  border: 1px solid #ffb82e;
+  border-radius: 10px;
+  padding: 30px;
+  gap: 30px;
+`
+
+const StyledLoginButtons = styled.div`
+  display: flex;
+  gap: 10px;
+  justify-content: center;
+`
+
+const StyledLoginButton = styled.button`
+  border: 1px solid #ccd4e3;
+  background: #fff;
+  border-radius: 10px;
+  height: 60px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding-left: 32px;
+  padding-right: 32px;
+`
+
+const shortenAddress = (address) => `${address.slice(0, 6)}...${address.slice(-3)}`
+
+const StyledUserCard = styled.div`
+  display: flex;
+  flex-direction: row;
+  gap: 20px;
+  padding: 20px;
+  background: #fff;
+  border: 1px solid #CCD4E3;
+  border-radius: 10px;
+  align-items: center;
+  justify-content: space-between;
+`
+
+const spin = keyframes`
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+`
+
+const StyledSpinner = styled.div`
+  width: 20px;
+  height: 20px;
+  animation: ${spin} 2s linear infinite;
+  background: url(${require('./loading.png')}) no-repeat center center;
+  background-size: cover;
+`
+
+const AppSction = () => {
+  const { t } = useTranslation()
+  return (
+    <div style={{ background: '#FFB82E', borderRadius: '10px', overflow: 'hidden' }}>
+      <div style={{ padding: '20px', display: 'flex', gap: '20px', alignItems: 'center' }}>
+        <img src={require('./icon.png')} style={{ width: '35px', height: '35px' }} />
+        <div style={{ flex: 1, display: 'flex', flexDirection: 'column', gap: '5px' }}>
+          <Typography variant="title3">{t('rewardCard.appName')}</Typography>
+          <Typography variant="header3">{t('rewardCard.appDesc')}</Typography>
+        </div>
+      </div>
+      <div style={{ background: '#F19F00', padding: '20px', display: 'flex', gap: '20px', alignItems: 'center' }}>
+        <img src={require('./qrcode.png')} style={{ width: '160px', height: '160px' }} />
+        <div style={{ display: 'flex', flexDirection: 'column', gap: '20px' }}>
+          <Typography variant="header3" style={{ fontWeight: 500 }}>{t('rewardCard.qrcode')}</Typography>
+          <a href="https://apps.apple.com/app/id6456410353">
+            <img src={require('./appstore.png')} style={{ width: '138px', height: '40px' }} />
+          </a>
+        </div>
+      </div>
+    </div>
+  )
+}
+
+const useClaimInfo = (wallet, firebaseUser) => {
+  const [info, setInfo] = useState()
+  const api = useApi()
+
+  useEffect(() => {
+    if (wallet && firebaseUser) {
+      api.presale.getPresaleFooca({ wallet }).then(info => {
+        console.log(info)
+        setInfo(info)
+      }).catch(err => {
+        if (err.body?.code !== 10013 && err.body?.code !== 10003 && err.body?.code !== 10001) {
+            console.warn(err)
+            alert('Failed to sign in')
+        }
+      })
+    }
+  }, [wallet, firebaseUser])
+
+  return info
+}
+
+const useSignMessage = (message) => {
+  const [processing, setProcessing] = useState(false)
+  const [success, setSuccess] = useState(false)
+  const { library } = useEthers()
+  const [ signedMessage, setSignedMessage ] = useState()
+
+  const sign = useCallback(() => {
+    if (library && message) {
+      setProcessing(true)
+      console.log(`sign message: ${message}`)
+      const signer = library.getSigner()
+      signer.signMessage(message).then(signedMessage => {
+        setProcessing(false)
+        setSignedMessage(signedMessage)
+        setSuccess(true)
+      }).catch(err => {
+        setProcessing(false)
+        console.error(err)
+        alert(err.message)
+        setSuccess(false)
+      })
+    }
+  }, [message, library])
+
+  return { sign, processing, success, signedMessage }
+}
+
+const useClaim = (message, signature, firebaseUser) => {
+  const { account } = useEthers()
+  const [processing, setProcessing] = useState(false)
+  const [success, setSuccess] = useState(false)
+  const api = useApi()
+
+  useEffect(() => {
+    if (message && signature && account && firebaseUser) {
+      setProcessing(true)
+      api.presale.claimPresaleFooca({ requestBody: { wallet: account, message, signature } }).then(() => {
+        setProcessing(false)
+        setSuccess(true)
+      }).catch((err) => {
+        setProcessing(false)
+        console.error(err)
+        alert(err.message)
+      })
+    }
+  }, [message, signature, account, firebaseUser])
+
+  return { processing, success }
+}
+
 export default function RewardCard() {
   const { t } = useTranslation()
-  const { account, activateBrowserWallet } = useEthers()
+  const { account, activateBrowserWallet, deactivate } = useEthers()
   const addresses = useAddresses()
   const balance = useTokenBalance(addresses?.PFOOD, account) ?? constants.Zero
   const balanceNumber = Number(formatEther(balance))
@@ -137,6 +235,14 @@ export default function RewardCard() {
   const progress =
     Number(formatEther(balance.sub(currLevelRequiredAmount))) /
     Number(formatEther(nextLevelRequiredAmount.sub(currLevelRequiredAmount)))
+  const user = useFirebaseUser()
+  const foodayUser = useFoodayUser()
+  const signIn = useFirebaseSignIn()
+  const signOut = useFirebaseSignOut()
+  const claimInfo = useClaimInfo(account, user)
+  const sign = useSignMessage(claimInfo?.claimMessage)
+  const claim = useClaim(claimInfo?.claimMessage, sign.signedMessage, foodayUser)
+  const count = claimInfo?.amount ?? 0
 
   return (
     <StyledCard head={<StyledTitle>{t('rewardCard.title')}</StyledTitle>}>
@@ -144,38 +250,143 @@ export default function RewardCard() {
         <StyledContent>
           <StyledLevelStatus>
             <StyledLevelStatusContent>
-              <Typography variant="caption">{t('rewardCard.currStatusLabel')}</Typography>
-              <Typography variant="title3">Level {level}</Typography>
+              <div>
+                <Typography variant="caption">{t('rewardCard.yourAddress')}</Typography>
+                <button onClick={() => deactivate()}>
+                  <Typography variant="caption" style={{ color: '#545864' }}>{t('rewardCard.disconnectButton')}</Typography>
+                </button>
+              </div>
+              <Typography variant="title3">{shortenAddress(account)}</Typography>
             </StyledLevelStatusContent>
-            <StyledCameraImage src={cameraImage} />
           </StyledLevelStatus>
 
-          {level < 6 && (
-            <>
-              <StyledProgress>
-                <Typography variant="header3">
-                  {t('rewardCard.purchasedAmount', { amount: trim(formatEther(balance)) })}
-                </Typography>
-                <StyledProgressBar progress={progress}>
-                  <StyledLockerIcon src={unlockedIcon} />
-                  <StyledLockerIcon src={lockedIcon} />
-                </StyledProgressBar>
-                <StyledProgressLevels>
-                  <StyledProgressLevel>
-                    <Typography variant="header2">Level {level}</Typography>
-                    <Typography variant="caption" color="#545864">
-                      {trim(formatEther(currLevelRequiredAmount))} pFOOD
-                    </Typography>
-                  </StyledProgressLevel>
-                  <StyledProgressLevel>
-                    <Typography variant="header2">Level {level + 1}</Typography>
-                    <Typography variant="caption" color="#545864">
-                      {trim(formatEther(nextLevelRequiredAmount))} pFOOD
-                    </Typography>
-                  </StyledProgressLevel>
-                </StyledProgressLevels>
-              </StyledProgress>
-            </>
+          <div style={{ display: 'flex' }}>
+            <StyledLevelStatus style={{ flex: 1 }}>
+              <StyledLevelStatusContent>
+                <Typography variant="caption">{t('rewardCard.status')}</Typography>
+                <Typography variant="title3">Level {level}</Typography>
+              </StyledLevelStatusContent>
+            </StyledLevelStatus>
+            <StyledLevelStatus style={{ flex: 1 }}>
+              <StyledLevelStatusContent>
+                <Typography variant="caption">{t('rewardCard.rewardsLabel')}</Typography>
+                <Typography variant="title3">{t('rewardCard.camera', { count })}</Typography>
+              </StyledLevelStatusContent>
+            </StyledLevelStatus>
+          </div>
+
+          {level > 0 && !user && (
+            <StyledLoginBox>
+              <Typography variant="header2" style={{ textAlign: 'center' }}>{t('rewardCard.loginBoxTitle')}</Typography>
+              <StyledLoginButtons>
+                <StyledLoginButton onClick={() => signIn('google')}>
+                  <img style={{ width: 40, height: 40 }} src={googleIcon} alt="Google" />
+                </StyledLoginButton>
+                <StyledLoginButton onClick={() => signIn('facebook')}>
+                  <img style={{ width: 40, height: 40 }} src={facebookIcon} alt="Facebook" />
+                </StyledLoginButton>
+                <StyledLoginButton onClick={() => signIn('apple')}>
+                  <img style={{ width: 40, height: 40 }} src={appleIcon} alt="Apple" />
+                </StyledLoginButton>
+              </StyledLoginButtons>
+            </StyledLoginBox>
+          )}
+
+          {count > 0 && user && !foodayUser && (
+            <StyledLoginBox style={{ justifyContent: 'center', alignItems: 'center' }}>
+              <StyledSpinner />
+            </StyledLoginBox>
+          )}
+
+          {count > 0 && foodayUser && (
+            <StyledLoginBox style={{ gap: 0 }}>
+              <Typography variant="title3" style={{ textAlign: 'center', marginBottom: '30px' }}>{t('rewardCard.loggedInTitle')}</Typography>
+              <Typography variant="header2" style={{ marginBottom: '10px' }}>{t('rewardCard.foodayAccount')}</Typography>
+              <StyledUserCard style={{ marginBottom: '30px' }}>
+                <img src={foodayUser.photoURL} style={{ width: '64px', height: '64px', flexShrink: 0, borderRadius: '32px' }} />
+                <div style={{ flex: 1, display: 'flex', gap: '10px', flexDirection: 'column' }}>
+                  <Typography variant="title3">{foodayUser.displayName}</Typography>
+                  <Typography variant="body">@{foodayUser.username}</Typography>
+                </div>
+                <button style={{ display: 'flex', justifyContent: 'center', alignItems: 'center' }} onClick={() => signOut()}>
+                  <Typography variant="header2" style={{ color: '#545864' }}>{t('rewardCard.logout')}</Typography>
+                </button>
+              </StyledUserCard>
+              <Typography variant="header2" style={{ marginBottom: '10px' }}>{t('rewardCard.unclaimedRewards')}</Typography>
+              <StyledUserCard style={{ marginBottom: '30px' }}>
+                <img src={boxImage} style={{ width: '45px', height: '45px' }} />
+                <div style={{ flex: 1, display: 'flex', gap: '10px', flexDirection: 'column' }}>
+                  <Typography variant="title3">{t('rewardCard.camera', { count })}</Typography>
+                </div>
+              </StyledUserCard>
+
+              <div style={{ marginBottom: '30px', textAlign: 'center' }}>
+                <Typography variant="body" style={{ color: '#545864' }}>{t('rewardCard.claimMsg')}</Typography>
+              </div>
+
+              <button disabled={claim.processing || sign.processing} style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', background: '#000', padding: '16px 24px', color: '#fff', borderRadius: '5px' }} onClick={sign.sign}>
+                {claim.processing && <StyledSpinner />}
+                {!claim.processing && (
+                  <Typography variant="header2">{t('rewardCard.claimBtn')}</Typography>
+                )}
+              </button>
+            </StyledLoginBox>
+          )}
+
+          {(claim.success || claimInfo?.claimed) && (
+            <StyledLoginBox style={{ alignItems: 'center' }}>
+              <Typography variant="title3" style={{ textAlign: 'center' }}>{t('rewardCard.airdroppedTitle')}</Typography>
+              <img src={require('./fooca-reward-img.png')} style={{ width: '346px', height: '200px' }} />
+              <Typography variant="header3">{t('rewardCard.airdroppedMsg')}</Typography>
+              <AppSction />
+            </StyledLoginBox>
+          )}
+
+          {count > 0 && user && !foodayUser && claimInfo?.invitationCode && (
+            <StyledLoginBox style={{ alignItems: 'center' }}>
+              <Typography variant="title3" style={{ textAlign: 'center' }}>{t('rewardCard.noAccountTitle')}</Typography>
+              <img src={require('./level-up-tips.png')} style={{ width: '80px', height: '80px' }} />
+              <Typography variant="header3" style={{ textAlign: 'center' }}>{t('rewardCard.airdroppedMsg')}</Typography>
+
+              <div style={{ width: '100%', display: 'flex', flexDirection: 'column', gap: '10px' }}>
+                <Typography variant="header2" style={{ color: '#F19F00' }}>{t('rewardCard.step1Title')}</Typography>
+                <Typography variant="header3">{t('rewardCard.step1Desc')}</Typography>
+                {sign.processing && (
+                  <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+                    <StyledSpinner />
+                  </div>
+                )}
+                {!sign.processing && (
+                  <button onClick={sign.sign} disabled={sign.success} style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', background: sign.success ? '#A1A7BA' : '#000', padding: '16px 24px', color: '#fff', borderRadius: '5px' }}>
+                    <Typography variant="header2">{t('rewardCard.signToContinue', { context: sign.success ? 'success' : undefined })}</Typography>
+                  </button>
+                )}
+              </div>
+
+              {sign.success && (
+                <>
+                  <div style={{ width: '100%', display: 'flex', flexDirection: 'column', gap: '10px' }}>
+                    <Typography variant="header2" style={{ color: '#F19F00' }}>{t('rewardCard.step2Title')}</Typography>
+                    <Typography variant="header3">{t('rewardCard.step2Desc')}</Typography>
+                    <button onClick={() => {
+                      copy(claimInfo?.invitationCode)
+                      alert('Copied')
+                    }} style={{ display: 'flex', gap: '20px', alignItems: 'center', justifyContent: 'center', background: '#fff', padding: '20px', borderRadius: '5px', border: '1px #CCD4E3 solid' }}>
+                      <img src={require('./ticket.png')} style={{ width: '32px', height: '32px' }} />
+                      <Typography style={{ flex: 1, textAlign: 'left' }} variant="title3">{claimInfo?.invitationCode}</Typography>
+                      <Typography style={{ color: '#545864' }} variant="title3">{t('rewardCard.copyCode')}</Typography>
+                    </button>
+                  </div>
+
+                  <div style={{ width: '100%', display: 'flex', flexDirection: 'column', gap: '10px' }}>
+                    <Typography variant="header2" style={{ color: '#F19F00' }}>{t('rewardCard.step3Title')}</Typography>
+                    <Typography variant="header3">{t('rewardCard.step3Desc')}</Typography>
+                  </div>
+
+                  <AppSction />
+                </>
+              )}
+            </StyledLoginBox>
           )}
         </StyledContent>
       )}

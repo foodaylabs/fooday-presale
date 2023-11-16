@@ -1,0 +1,28 @@
+import type { ChallengeType } from './ChallengeType';
+import type { FudosAmount } from './FudosAmount';
+import type { PendingChallenge } from './PendingChallenge';
+import type { PublicUser } from './PublicUser';
+import type { Review } from './Review';
+import type { Spot } from './Spot';
+import type { Time } from './Time';
+import type { TransactionStatus } from './TransactionStatus';
+import type { Vote } from './Vote';
+export type Challenge = (PendingChallenge & {
+    type: ChallengeType;
+    target: string;
+    status: TransactionStatus;
+    dueAt: Time;
+    upvotes: number;
+    downvotes: number;
+    totalVoters: number;
+    votes: Array<Vote>;
+    updatedAt: Time;
+    createdAt: Time;
+    transaction: string;
+    targetTransaction: string;
+    whistleblower?: PublicUser;
+    reward?: FudosAmount;
+    penalty?: FudosAmount;
+    spot: Spot;
+    review?: Review;
+});

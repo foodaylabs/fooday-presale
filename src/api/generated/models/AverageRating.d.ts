@@ -1,0 +1,1 @@
+export type AverageRating = number;
