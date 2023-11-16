@@ -3,6 +3,7 @@ import ReactDOM from 'react-dom/client'
 import App from './App'
 import './index.css'
 import reportWebVitals from './reportWebVitals'
+import { ApiProvider } from './ApiProvider'
 
 import { ChainId, DAppProvider } from '@usedapp/core'
 
@@ -21,7 +22,9 @@ const root = ReactDOM.createRoot(document.getElementById('root'))
 root.render(
   <React.StrictMode>
     <DAppProvider config={config}>
-      <App />
+      <ApiProvider>
+          <App />
+      </ApiProvider>
     </DAppProvider>
   </React.StrictMode>
 )

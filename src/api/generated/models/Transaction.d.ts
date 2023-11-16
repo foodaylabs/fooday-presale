@@ -1,0 +1,21 @@
+import type { ActionResult } from './ActionResult';
+import type { DepositEvent } from './DepositEvent';
+import type { FoocaBoxOrder } from './FoocaBoxOrder';
+import type { FoocaCameraOrder } from './FoocaCameraOrder';
+import type { FoocaCharge } from './FoocaCharge';
+import type { FoocaUpgrade } from './FoocaUpgrade';
+import type { Penalty } from './Penalty';
+import type { Settlement } from './Settlement';
+import type { Time } from './Time';
+import type { TransactionLog } from './TransactionLog';
+import type { TransactionStatus } from './TransactionStatus';
+import type { TransactionType } from './TransactionType';
+export type Transaction = {
+    id: string;
+    type: TransactionType;
+    status: TransactionStatus;
+    logs: Array<TransactionLog>;
+    data?: (DepositEvent | ActionResult | Settlement | FoocaCharge | FoocaUpgrade | Penalty | FoocaBoxOrder | FoocaCameraOrder);
+    updatedAt: Time;
+    createdAt: Time;
+};

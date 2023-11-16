@@ -1,0 +1,1 @@
+export type FudosAmount = number;
