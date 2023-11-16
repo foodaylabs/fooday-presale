@@ -1,20 +1,15 @@
-import { useEthers, useTokenBalance } from '@usedapp/core'
-import { BigNumber, constants } from 'ethers'
-import { formatEther, parseEther } from 'ethers/lib/utils'
+import { useEthers } from '@usedapp/core'
 import React, { useCallback, useEffect, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import styled, { keyframes } from 'styled-components/macro'
 import Card from '../Card'
-import { useAddresses } from '../contracts'
 import { Typography } from '../Typography'
-import { amountOfLevel, calcAmountToNextLevel, pfoodToLevel } from '../utils/levels'
 import googleIcon from './google.png'
 import facebookIcon from './facebook.png'
 import appleIcon from './apple.png'
 import { useFirebaseSignIn, useFirebaseSignOut, useFirebaseUser } from '../firebase'
 import boxImage from './box.png'
 import { useFoodayUser } from '../fooday'
-import { FirebaseError } from 'firebase/app'
 import { useApi } from '../ApiProvider'
 import copy from 'copy-to-clipboard'
 
@@ -156,7 +151,7 @@ const useClaimInfo = (wallet, firebaseUser) => {
   const api = useApi()
 
   const reload = useCallback(() => {
-    if (wallet && firebaseUser) {
+    if (wallet) {
       api.presale.getPresaleFooca({ wallet }).then(info => {
         console.log(info)
         setInfo(info)
@@ -167,7 +162,7 @@ const useClaimInfo = (wallet, firebaseUser) => {
         }
       })
     }
-  }, [wallet, firebaseUser])
+  }, [wallet])
 
   useEffect(() => {
     reload()
@@ -231,16 +226,6 @@ const useClaim = (message, signature, firebaseUser) => {
 export default function RewardCard() {
   const { t } = useTranslation()
   const { account, activateBrowserWallet, deactivate } = useEthers()
-  const addresses = useAddresses()
-  const balance = useTokenBalance(addresses?.PFOOD, account) ?? constants.Zero
-  const balanceNumber = Number(formatEther(balance))
-  const level = pfoodToLevel(balanceNumber)
-  const amountToNextLevel = parseEther(String(calcAmountToNextLevel(balanceNumber)))
-  const currLevelRequiredAmount = parseEther(String(amountOfLevel(level)))
-  const nextLevelRequiredAmount = parseEther(String(amountOfLevel(level + 1)))
-  const progress =
-    Number(formatEther(balance.sub(currLevelRequiredAmount))) /
-    Number(formatEther(nextLevelRequiredAmount.sub(currLevelRequiredAmount)))
   const user = useFirebaseUser()
   const { user: foodayUser, loading: foodayUserLoading } = useFoodayUser()
   const signIn = useFirebaseSignIn()
@@ -276,13 +261,13 @@ export default function RewardCard() {
             <StyledLevelStatus style={{ flex: 1 }}>
               <StyledLevelStatusContent>
                 <Typography variant="caption">{t('rewardCard.status')}</Typography>
-                <Typography variant="title3">Level {level}</Typography>
+                <Typography variant="title3">Level {count}</Typography>
               </StyledLevelStatusContent>
             </StyledLevelStatus>
             <StyledLevelStatus style={{ flex: 1 }}>
               <StyledLevelStatusContent>
                 <Typography variant="caption">{t('rewardCard.rewardsLabel')}</Typography>
-                <Typography variant="title3">{t('rewardCard.camera', { count: level })}</Typography>
+                <Typography variant="title3">{t('rewardCard.camera', { count })}</Typography>
               </StyledLevelStatusContent>
             </StyledLevelStatus>
           </div>
