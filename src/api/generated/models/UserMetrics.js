@@ -1,10 +1,7 @@
-"use strict";
 /* istanbul ignore file */
 /* tslint:disable */
 /* eslint-disable */
-Object.defineProperty(exports, "__esModule", { value: true });
-exports.UserMetrics = void 0;
-var UserMetrics;
+export var UserMetrics;
 (function (UserMetrics) {
     UserMetrics["LEVEL"] = "level";
     UserMetrics["FOOCA_LEVEL"] = "foocaLevel";
@@ -18,4 +15,4 @@ var UserMetrics;
     UserMetrics["SPOT_COUNT"] = "spotCount";
     UserMetrics["VOTE_COUNT"] = "voteCount";
     UserMetrics["UPDATE_SPOT_COUNT"] = "updateSpotCount";
-})(UserMetrics = exports.UserMetrics || (exports.UserMetrics = {}));
+})(UserMetrics || (UserMetrics = {}));

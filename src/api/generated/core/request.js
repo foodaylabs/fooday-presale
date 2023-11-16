@@ -1,4 +1,3 @@
-"use strict";
 var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, generator) {
     function adopt(value) { return value instanceof P ? value : new P(function (resolve) { resolve(value); }); }
     return new (P || (P = Promise))(function (resolve, reject) {
@@ -8,13 +7,11 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
         step((generator = generator.apply(thisArg, _arguments || [])).next());
     });
 };
-Object.defineProperty(exports, "__esModule", { value: true });
-exports.request = exports.sendRequest = void 0;
 /* istanbul ignore file */
 /* tslint:disable */
 /* eslint-disable */
-const ApiError_1 = require("./ApiError");
-const CancelablePromise_1 = require("./CancelablePromise");
+import { ApiError } from './ApiError';
+import { CancelablePromise } from './CancelablePromise';
 const isDefined = (value) => {
     return value !== undefined && value !== null;
 };
@@ -170,7 +167,7 @@ const getRequestBody = (options) => {
     }
     return undefined;
 };
-const sendRequest = (config, options, url, body, formData, headers, onCancel) => __awaiter(void 0, void 0, void 0, function* () {
+export const sendRequest = (config, options, url, body, formData, headers, onCancel) => __awaiter(void 0, void 0, void 0, function* () {
     const controller = new AbortController();
     const request = {
         headers,
@@ -184,7 +181,6 @@ const sendRequest = (config, options, url, body, formData, headers, onCancel) =>
     onCancel(() => controller.abort());
     return yield fetch(url, request);
 });
-exports.sendRequest = sendRequest;
 const getResponseHeader = (response, responseHeader) => {
     if (responseHeader) {
         const content = response.headers.get(responseHeader);
@@ -218,10 +214,10 @@ const catchErrorCodes = (options, result) => {
     const errors = Object.assign({ 400: 'Bad Request', 401: 'Unauthorized', 403: 'Forbidden', 404: 'Not Found', 500: 'Internal Server Error', 502: 'Bad Gateway', 503: 'Service Unavailable' }, options.errors);
     const error = errors[result.status];
     if (error) {
-        throw new ApiError_1.ApiError(options, result, error);
+        throw new ApiError(options, result, error);
     }
     if (!result.ok) {
-        throw new ApiError_1.ApiError(options, result, 'Generic Error');
+        throw new ApiError(options, result, 'Generic Error');
     }
 };
 /**
@@ -231,15 +227,15 @@ const catchErrorCodes = (options, result) => {
  * @returns CancelablePromise<T>
  * @throws ApiError
  */
-const request = (config, options) => {
-    return new CancelablePromise_1.CancelablePromise((resolve, reject, onCancel) => __awaiter(void 0, void 0, void 0, function* () {
+export const request = (config, options) => {
+    return new CancelablePromise((resolve, reject, onCancel) => __awaiter(void 0, void 0, void 0, function* () {
         try {
             const url = getUrl(config, options);
             const formData = getFormData(options);
             const body = getRequestBody(options);
             const headers = yield getHeaders(config, options);
             if (!onCancel.isCancelled) {
-                const response = yield (0, exports.sendRequest)(config, options, url, body, formData, headers, onCancel);
+                const response = yield sendRequest(config, options, url, body, formData, headers, onCancel);
                 const responseBody = yield getResponseBody(response);
                 const responseHeader = getResponseHeader(response, options.responseHeader);
                 const result = {
@@ -258,4 +254,3 @@ const request = (config, options) => {
         }
     }));
 };
-exports.request = request;

@@ -1,10 +1,7 @@
-"use strict";
 /* istanbul ignore file */
 /* tslint:disable */
 /* eslint-disable */
-Object.defineProperty(exports, "__esModule", { value: true });
-exports.MissionRewardTier = void 0;
-var MissionRewardTier;
+export var MissionRewardTier;
 (function (MissionRewardTier) {
     MissionRewardTier["S"] = "S";
     MissionRewardTier["A"] = "A";
@@ -12,4 +9,4 @@ var MissionRewardTier;
     MissionRewardTier["C"] = "C";
     MissionRewardTier["D"] = "D";
     MissionRewardTier["E"] = "E";
-})(MissionRewardTier = exports.MissionRewardTier || (exports.MissionRewardTier = {}));
+})(MissionRewardTier || (MissionRewardTier = {}));

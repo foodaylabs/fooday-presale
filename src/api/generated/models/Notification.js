@@ -1,10 +1,7 @@
-"use strict";
 /* istanbul ignore file */
 /* tslint:disable */
 /* eslint-disable */
-Object.defineProperty(exports, "__esModule", { value: true });
-exports.Notification = void 0;
-var Notification;
+export var Notification;
 (function (Notification) {
     let topic;
     (function (topic) {
@@ -48,4 +45,4 @@ var Notification;
         topic["REVIEW_YOU_FOLLOWED_HAS_BEEN_COMMENTED"] = "review_you_followed_has_been_commented";
         topic["ITEM_SOLD"] = "item_sold";
     })(topic = Notification.topic || (Notification.topic = {}));
-})(Notification = exports.Notification || (exports.Notification = {}));
+})(Notification || (Notification = {}));

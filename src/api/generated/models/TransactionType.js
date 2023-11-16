@@ -1,10 +1,7 @@
-"use strict";
 /* istanbul ignore file */
 /* tslint:disable */
 /* eslint-disable */
-Object.defineProperty(exports, "__esModule", { value: true });
-exports.TransactionType = void 0;
-var TransactionType;
+export var TransactionType;
 (function (TransactionType) {
     TransactionType["DEPOSIT"] = "deposit";
     TransactionType["WITHDRAW"] = "withdraw";
@@ -20,4 +17,4 @@ var TransactionType;
     TransactionType["IAP_REFUNDED"] = "iapRefunded";
     TransactionType["INVITATION_REWARD"] = "invitationReward";
     TransactionType["MISSION_REWARD"] = "missionReward";
-})(TransactionType = exports.TransactionType || (exports.TransactionType = {}));
+})(TransactionType || (TransactionType = {}));

@@ -1,7 +1,4 @@
-"use strict";
-Object.defineProperty(exports, "__esModule", { value: true });
-exports.SpotService = void 0;
-class SpotService {
+export class SpotService {
     constructor(httpRequest) {
         this.httpRequest = httpRequest;
     }
@@ -221,4 +218,3 @@ class SpotService {
         });
     }
 }
-exports.SpotService = SpotService;

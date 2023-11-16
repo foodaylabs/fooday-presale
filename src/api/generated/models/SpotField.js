@@ -1,10 +1,7 @@
-"use strict";
 /* istanbul ignore file */
 /* tslint:disable */
 /* eslint-disable */
-Object.defineProperty(exports, "__esModule", { value: true });
-exports.SpotField = void 0;
-var SpotField;
+export var SpotField;
 (function (SpotField) {
     SpotField["NAME"] = "name";
     SpotField["ADDRESS"] = "address";
@@ -13,4 +10,4 @@ var SpotField;
     SpotField["CATEGORY"] = "category";
     SpotField["PAYMENT_METHODS"] = "paymentMethods";
     SpotField["WEBSITE"] = "website";
-})(SpotField = exports.SpotField || (exports.SpotField = {}));
+})(SpotField || (SpotField = {}));

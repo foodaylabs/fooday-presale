@@ -1,7 +1,4 @@
-"use strict";
-Object.defineProperty(exports, "__esModule", { value: true });
-exports.IapService = void 0;
-class IapService {
+export class IapService {
     constructor(httpRequest) {
         this.httpRequest = httpRequest;
     }
@@ -38,4 +35,3 @@ class IapService {
         });
     }
 }
-exports.IapService = IapService;

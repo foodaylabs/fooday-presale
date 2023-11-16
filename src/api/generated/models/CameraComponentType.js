@@ -1,10 +1,7 @@
-"use strict";
 /* istanbul ignore file */
 /* tslint:disable */
 /* eslint-disable */
-Object.defineProperty(exports, "__esModule", { value: true });
-exports.CameraComponentType = void 0;
-var CameraComponentType;
+export var CameraComponentType;
 (function (CameraComponentType) {
     CameraComponentType["LENS"] = "lens";
     CameraComponentType["LENS_FRAME"] = "lensFrame";
@@ -15,4 +12,4 @@ var CameraComponentType;
     CameraComponentType["BACKGROUND"] = "background";
     CameraComponentType["FIRST_NAME"] = "firstName";
     CameraComponentType["LAST_NAME"] = "lastName";
-})(CameraComponentType = exports.CameraComponentType || (exports.CameraComponentType = {}));
+})(CameraComponentType || (CameraComponentType = {}));

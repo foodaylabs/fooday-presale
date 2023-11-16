@@ -1,10 +1,7 @@
-"use strict";
 /* istanbul ignore file */
 /* tslint:disable */
 /* eslint-disable */
-Object.defineProperty(exports, "__esModule", { value: true });
-exports.ActionType = void 0;
-var ActionType;
+export var ActionType;
 (function (ActionType) {
     ActionType["CREATE_SPOT"] = "createSpot";
     ActionType["UPDATE_SPOT"] = "updateSpot";
@@ -12,4 +9,4 @@ var ActionType;
     ActionType["REPORT_SPOT"] = "reportSpot";
     ActionType["REPORT_REVIEW"] = "reportReview";
     ActionType["VOTE"] = "vote";
-})(ActionType = exports.ActionType || (exports.ActionType = {}));
+})(ActionType || (ActionType = {}));

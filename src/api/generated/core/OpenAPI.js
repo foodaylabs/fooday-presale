@@ -1,7 +1,4 @@
-"use strict";
-Object.defineProperty(exports, "__esModule", { value: true });
-exports.OpenAPI = void 0;
-exports.OpenAPI = {
+export const OpenAPI = {
     BASE: 'http://localhost:3001',
     VERSION: '1.0.0',
     WITH_CREDENTIALS: false,
