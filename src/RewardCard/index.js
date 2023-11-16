@@ -155,7 +155,7 @@ const useClaimInfo = (wallet, firebaseUser) => {
   const [info, setInfo] = useState()
   const api = useApi()
 
-  useEffect(() => {
+  const reload = useCallback(() => {
     if (wallet && firebaseUser) {
       api.presale.getPresaleFooca({ wallet }).then(info => {
         console.log(info)
@@ -169,7 +169,11 @@ const useClaimInfo = (wallet, firebaseUser) => {
     }
   }, [wallet, firebaseUser])
 
-  return info
+  useEffect(() => {
+    reload()
+  }, [wallet, firebaseUser])
+
+  return { info, reload }
 }
 
 const useSignMessage = (message) => {
@@ -203,14 +207,16 @@ const useClaim = (message, signature, firebaseUser) => {
   const { account } = useEthers()
   const [processing, setProcessing] = useState(false)
   const [success, setSuccess] = useState(false)
+  const [result, setResult] = useState()
   const api = useApi()
 
   useEffect(() => {
     if (message && signature && account && firebaseUser) {
       setProcessing(true)
-      api.presale.claimPresaleFooca({ requestBody: { wallet: account, message, signature } }).then(() => {
+      api.presale.claimPresaleFooca({ requestBody: { wallet: account, message, signature } }).then((result) => {
         setProcessing(false)
         setSuccess(true)
+        setResult(result)
       }).catch((err) => {
         setProcessing(false)
         console.error(err)
@@ -219,7 +225,7 @@ const useClaim = (message, signature, firebaseUser) => {
     }
   }, [message, signature, account, firebaseUser])
 
-  return { processing, success }
+  return { processing, success, result }
 }
 
 export default function RewardCard() {
@@ -236,13 +242,19 @@ export default function RewardCard() {
     Number(formatEther(balance.sub(currLevelRequiredAmount))) /
     Number(formatEther(nextLevelRequiredAmount.sub(currLevelRequiredAmount)))
   const user = useFirebaseUser()
-  const foodayUser = useFoodayUser()
+  const { user: foodayUser, loading: foodayUserLoading } = useFoodayUser()
   const signIn = useFirebaseSignIn()
   const signOut = useFirebaseSignOut()
-  const claimInfo = useClaimInfo(account, user)
+  const { info: claimInfo, reload: reloadClaimInfo } = useClaimInfo(account, user)
   const sign = useSignMessage(claimInfo?.claimMessage)
-  const claim = useClaim(claimInfo?.claimMessage, sign.signedMessage, foodayUser)
+  const claim = useClaim(claimInfo?.claimMessage, sign.signedMessage, user)
   const count = claimInfo?.amount ?? 0
+
+  useEffect(() => {
+    if (claim.success) {
+      reloadClaimInfo()
+    }
+  }, [claim.success])
 
   return (
     <StyledCard head={<StyledTitle>{t('rewardCard.title')}</StyledTitle>}>
@@ -270,12 +282,12 @@ export default function RewardCard() {
             <StyledLevelStatus style={{ flex: 1 }}>
               <StyledLevelStatusContent>
                 <Typography variant="caption">{t('rewardCard.rewardsLabel')}</Typography>
-                <Typography variant="title3">{t('rewardCard.camera', { count })}</Typography>
+                <Typography variant="title3">{t('rewardCard.camera', { count: level })}</Typography>
               </StyledLevelStatusContent>
             </StyledLevelStatus>
           </div>
 
-          {level > 0 && !user && (
+          {!user && (
             <StyledLoginBox>
               <Typography variant="header2" style={{ textAlign: 'center' }}>{t('rewardCard.loginBoxTitle')}</Typography>
               <StyledLoginButtons>
@@ -292,13 +304,13 @@ export default function RewardCard() {
             </StyledLoginBox>
           )}
 
-          {count > 0 && user && !foodayUser && (
+          {foodayUserLoading && (
             <StyledLoginBox style={{ justifyContent: 'center', alignItems: 'center' }}>
               <StyledSpinner />
             </StyledLoginBox>
           )}
 
-          {count > 0 && foodayUser && (
+          {count > 0 && foodayUser && !claimInfo?.claimed && (
             <StyledLoginBox style={{ gap: 0 }}>
               <Typography variant="title3" style={{ textAlign: 'center', marginBottom: '30px' }}>{t('rewardCard.loggedInTitle')}</Typography>
               <Typography variant="header2" style={{ marginBottom: '10px' }}>{t('rewardCard.foodayAccount')}</Typography>
@@ -333,7 +345,7 @@ export default function RewardCard() {
             </StyledLoginBox>
           )}
 
-          {(claim.success || claimInfo?.claimed) && (
+          {(claim.success || claimInfo?.claimed) && foodayUser && (
             <StyledLoginBox style={{ alignItems: 'center' }}>
               <Typography variant="title3" style={{ textAlign: 'center' }}>{t('rewardCard.airdroppedTitle')}</Typography>
               <img src={require('./fooca-reward-img.png')} style={{ width: '346px', height: '200px' }} />
@@ -342,7 +354,7 @@ export default function RewardCard() {
             </StyledLoginBox>
           )}
 
-          {count > 0 && user && !foodayUser && claimInfo?.invitationCode && (
+          {count > 0 && user && !foodayUser && !foodayUserLoading && (
             <StyledLoginBox style={{ alignItems: 'center' }}>
               <Typography variant="title3" style={{ textAlign: 'center' }}>{t('rewardCard.noAccountTitle')}</Typography>
               <img src={require('./level-up-tips.png')} style={{ width: '80px', height: '80px' }} />
@@ -369,11 +381,11 @@ export default function RewardCard() {
                     <Typography variant="header2" style={{ color: '#F19F00' }}>{t('rewardCard.step2Title')}</Typography>
                     <Typography variant="header3">{t('rewardCard.step2Desc')}</Typography>
                     <button onClick={() => {
-                      copy(claimInfo?.invitationCode)
+                      copy(claim.result?.invitationCode)
                       alert('Copied')
                     }} style={{ display: 'flex', gap: '20px', alignItems: 'center', justifyContent: 'center', background: '#fff', padding: '20px', borderRadius: '5px', border: '1px #CCD4E3 solid' }}>
                       <img src={require('./ticket.png')} style={{ width: '32px', height: '32px' }} />
-                      <Typography style={{ flex: 1, textAlign: 'left' }} variant="title3">{claimInfo?.invitationCode}</Typography>
+                      <Typography style={{ flex: 1, textAlign: 'left' }} variant="title3">{claim.result?.invitationCode}</Typography>
                       <Typography style={{ color: '#545864' }} variant="title3">{t('rewardCard.copyCode')}</Typography>
                     </button>
                   </div>
