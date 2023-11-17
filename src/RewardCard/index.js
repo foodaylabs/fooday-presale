@@ -152,7 +152,8 @@ const useClaimInfo = (wallet, firebaseUser) => {
 
   const reload = useCallback(() => {
     if (wallet) {
-      api.presale.getPresaleFooca({ wallet }).then(info => {
+      const promise = api.presale.getPresaleFooca({ wallet })
+      promise.then(info => {
         console.log(info)
         setInfo(info)
       }).catch(err => {
@@ -161,12 +162,14 @@ const useClaimInfo = (wallet, firebaseUser) => {
             alert('Failed to sign in')
         }
       })
+      return promise
     }
   }, [wallet])
 
   useEffect(() => {
-    reload()
-  }, [wallet, firebaseUser])
+    const promise = reload()
+    return () => promise?.cancel()
+  }, [wallet])
 
   return { info, reload }
 }
@@ -208,7 +211,8 @@ const useClaim = (message, signature, firebaseUser) => {
   useEffect(() => {
     if (message && signature && account && firebaseUser) {
       setProcessing(true)
-      api.presale.claimPresaleFooca({ requestBody: { wallet: account, message, signature } }).then((result) => {
+      const promise = api.presale.claimPresaleFooca({ requestBody: { wallet: account, message, signature } })
+      promise.then((result) => {
         setProcessing(false)
         setSuccess(true)
         setResult(result)
@@ -217,6 +221,7 @@ const useClaim = (message, signature, firebaseUser) => {
         console.error(err)
         alert(err.message)
       })
+      return () => promise.cancel()
     }
   }, [message, signature, account, firebaseUser])
 
