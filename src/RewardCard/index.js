@@ -209,7 +209,7 @@ const useClaim = (message, signature, firebaseUser) => {
   const api = useApi()
 
   useEffect(() => {
-    if (message && signature && account && firebaseUser) {
+    if (!success && message && signature && account && firebaseUser) {
       setProcessing(true)
       const promise = api.presale.claimPresaleFooca({ requestBody: { wallet: account, message, signature } })
       promise.then((result) => {
