@@ -1,14 +1,13 @@
 {
   "files": {
     "main.css": "/static/css/main.daa28779.css",
-    "main.js": "/static/js/main.32b23c05.js",
+    "main.js": "/static/js/main.3af5a6bd.js",
     "static/js/787.dbe2b808.chunk.js": "/static/js/787.dbe2b808.chunk.js",
     "static/media/faq.png": "/static/media/faq.71781b7ee2ae1cd0b696.png",
     "static/media/qrcode.png": "/static/media/qrcode.944d0d989fcb03b989e8.png",
-    "static/media/fooca-reward-img.png": "/static/media/fooca-reward-img.e1c0848169a3d80ca338.png",
+    "static/media/fooca-reward-img.png": "/static/media/fooca-reward-img.cfffba0a9bfa2ec6055e.png",
     "static/media/loading.png": "/static/media/loading.b33cf61793927f75380a.png",
     "static/media/fooca-reward-img.webp": "/static/media/fooca-reward-img.578740cb8f6acce48171.webp",
-    "static/media/box.png": "/static/media/box.faf923376ee54f7bf6fd.png",
     "static/media/logo.svg": "/static/media/logo.b5df4d3228273e4690bf42904f1f31bc.svg",
     "static/media/tokens.svg": "/static/media/tokens.46a30768fc02e98e4e37ce3f41c6ce30.svg",
     "static/media/text-foodcoin.svg": "/static/media/text-foodcoin.299b26b230675a23aab05674a7eea1a1.svg",
@@ -21,11 +20,11 @@
     "static/media/unlocked-icon.svg": "/static/media/unlocked-icon.b98b2d5480f4ff677523f8f22418d727.svg",
     "static/media/minus.svg": "/static/media/minus.6057c87696810d6418fcfce5de5da13c.svg",
     "main.daa28779.css.map": "/static/css/main.daa28779.css.map",
-    "main.32b23c05.js.map": "/static/js/main.32b23c05.js.map",
+    "main.3af5a6bd.js.map": "/static/js/main.3af5a6bd.js.map",
     "787.dbe2b808.chunk.js.map": "/static/js/787.dbe2b808.chunk.js.map"
   },
   "entrypoints": [
     "static/css/main.daa28779.css",
-    "static/js/main.32b23c05.js"
+    "static/js/main.3af5a6bd.js"
   ]
 }
