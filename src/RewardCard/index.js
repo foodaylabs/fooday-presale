@@ -272,8 +272,9 @@ export default function RewardCard() {
             <StyledLevelStatus style={{ flex: 1 }}>
               <StyledLevelStatusContent>
                 <Typography variant="caption">{t('rewardCard.rewardsLabel')}</Typography>
-                <Typography variant="title3">{t('rewardCard.camera', { count })}</Typography>
+                <Typography variant="title3" style={{ whiteSpace: 'nowrap' }}>{t('rewardCard.camera', { count })}</Typography>
               </StyledLevelStatusContent>
+              <img style={{ width: '44px', height: '44px' }} src={require('./box.png')} />
             </StyledLevelStatus>
           </div>
 
