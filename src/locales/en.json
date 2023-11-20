@@ -114,16 +114,16 @@
     "yourAddress": "Your address",
     "disconnectButton": "Disconnect",
     "status": "Your presale status",
-    "camera_zero": "You don't have any Fooca Box",
+    "camera_zero": "You don't have any Genesis Fooca Box",
     "camera_other": "Genesis Fooca Box x{{count}}",
-    "loginBoxTitle": "Log in to your Fooday account to claim you rewards now!",
+    "loginBoxTitle": "Log in to your Fooday account to claim your rewards now!",
     "loggedInTitle": "You have been successfully logged in",
     "foodayAccount": "Your Fooday account",
     "unclaimedRewards": "Unclaimed Rewards",
     "logout": "Log out",
     "claimMsg": "To continue the process, you will be asked to sign the transaction to confirm the Fooca Camera to be minted in the Fooday app.",
     "claimBtn": "Claim your rewards now!",
-    "airdroppedTitle": "Your rewards has been airdropped to Fooday app",
+    "airdroppedTitle": "Your rewards have been airdropped to Fooday app",
     "airdroppedMsg": "Enter the Fooday app to check it out now!",
     "appName": "Fooday - Eat & Earn",
     "appDesc": "Get rewarded your Your Opinions",
@@ -135,7 +135,7 @@
     "signToContinue": "Sign to continue",
     "signToContinue_success": "Generated ✓",
     "step2Title": "Step 2",
-    "step2Desc": "Sign up in the Fooday app and apply the invitation code below to activating your account:",
+    "step2Desc": "Sign up in the Fooday app and apply the invitation code below to activate your account:",
     "copyCode": "Copy code",
     "step3Title": "Step 3",
     "step3Desc": "Your rewards will be in your account right after signing up. Enjoy your Foodie journey!"
@@ -143,15 +143,15 @@
   "airdropCard": {
     "title": "Free Fooca Camera Airdrops",
     "subTitle": "Exclusive to pFOOD Presale Participants!",
-    "message": "Reach or exceed certain amounts of pFOOD tokens, and you'll be eligible for the corresponding number of Fooca Cameras. The more pFOOD tokens you purchase, the more Fooca Cameras you'll receive.",
+    "message": "Reach or exceed certain amounts of pFOOD tokens, and you'll be eligible for the corresponding number of Genesis Fooca Boxes. The more pFOOD tokens you purchase, the more Fooca Cameras you'll receive.",
     "rewards": {
       "title": "Level tiers & reward lists",
       "level": "Level",
       "minPurchased": "Minimum purchased",
       "rewards": "Rewards",
       "unlocked": "You have unlocked this level",
-      "genesisFoocaCamera": "Genesis Fooca Camera",
-      "note": "Please note that the free Fooca Cameras will be airdropped to eligible participants after the pFOOD presale ends. Stay tuned for more information on when the airdrop will take place."
+      "genesisFoocaCamera": "Genesis Fooca Box",
+      "note": "Please note that the free Fooca Boxes will be airdropped to eligible participants after the pFOOD presale ends. Stay tuned for more information on when the airdrop will take place."
     }
   },
   "presaleCard": {
